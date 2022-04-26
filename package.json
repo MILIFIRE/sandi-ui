@@ -1,0 +1,54 @@
+{
+    "name": "sandi-ui",
+    "version": "1.0.0",
+    "description": "Vue3 component library based on Threejs",
+    "main": "./packages/sandi-ui/index.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "pnpm run build -C internal/build",
+        "clean:dist": "rimraf dist"
+    },
+    "keywords": [
+        "threejs",
+        "vue3",
+        "component"
+    ],
+    "workspaces": [
+        "packages/*"
+    ],
+    "author": "songshuai",
+    "license": "MIT",
+    "dependencies": {
+        "@pnpm/logger": "^4.0.0",
+        "@sandi-ui/components": "workspace:*",
+        "@sandi-ui/core": "workspace:*",
+        "@sandi-ui/enum": "workspace:*",
+        "@sandi-ui/modules": "workspace:*",
+        "@sandi-ui/utils": "workspace:*",
+        "@sandi-ui/constants": "workspace:*",
+        "@vueuse/core": "^8.2.5",
+        "three": "^0.139.2",
+        "vue": "^3.2.33"
+    },
+    "peerDependencies": {
+        "vue": "^3.2.33",
+        "three": "^0.139.2"
+    },
+    "devDependencies": {
+        "@pnpm/find-workspace-packages": "^4.0.0",
+        "@pnpm/types": "^8.0.0",
+        "@sandi-ui/build": "workspace:*",
+        "@types/node": "^17.0.23",
+        "@types/three": "^0.139.0",
+        "@vitejs/plugin-vue": "^2.3.1",
+        "@vitejs/plugin-vue-jsx": "^1.3.9",
+        "@vue/tsconfig": "^0.1.3",
+        "rimraf": "^3.0.2",
+        "sucrase": "^3.21.0",
+        "tslib": "^2.3.1",
+        "typescript": "^4.6.3",
+        "vite": "^2.9.1",
+        "vue-dts-gen": "^0.3.0",
+        "vue-tsc": "^0.34.4"
+    }
+}

@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true
+  },
+  "exclude": ["**/*.spec.tsx", "**/*.spec.ts", "**/*.test.tsx", "**/*.test.ts", "**/*/demo/**/*", "demo*.ts", "demo*.tsx"]
+  // "exclude": ["**/*.{spec,test}.{ts,tsx}"]
+}

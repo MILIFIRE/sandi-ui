@@ -1,0 +1,20 @@
+[
+  "packages/components/animation-action/",
+  "packages/components/animation-aixer/",
+  "packages/components/box-geometry/",
+  "packages/components/directional-light/",
+  "packages/components/gltf-loader/",
+  "packages/components/mesh/",
+  "packages/components/mesh-basic-material/",
+  "packages/components/object3d/",
+  "packages/components/orbit-controls/",
+  "packages/components/perspective-camera/",
+  "packages/components/scene/",
+  "packages/components/texture-loader/",
+  "packages/components/webgl-renderer/",
+  "packages/core",
+  "packages/sandi-ui",
+  "packages/enum",
+  "packages/modules",
+  "packages/utils"
+]

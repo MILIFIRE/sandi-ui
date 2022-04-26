@@ -1,0 +1,6 @@
+{
+  "name": "@sandi-ui/enum",
+  "private": true,
+  "license": "MIT",
+  "main": "index.ts"
+}

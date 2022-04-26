@@ -1,0 +1,22 @@
+diff --git a/node_modules/vitepress/dist/node/serve-777539c0.js b/node_modules/vitepress/dist/node/serve-777539c0.js
+index 1e5b880..3b19e85 100644
+--- a/node_modules/vitepress/dist/node/serve-777539c0.js
++++ b/node_modules/vitepress/dist/node/serve-777539c0.js
+@@ -34356,6 +34356,8 @@ const highlight = (str, lang) => {
+   return wrap(str, "text");
+ };
+
++exports.highlight = highlight;
++
+ var remove = removeDiacritics;
+
+ var replacementList = [
+@@ -37441,7 +37443,7 @@ function createVitePressPlugin(root, siteConfig, ssr = false, pageToHashMap, cli
+     },
+     renderStart() {
+       if (hasDeadLinks) {
+-        throw new Error(`One or more pages contain dead links.`);
++        // throw new Error(`One or more pages contain dead links.`);
+       }
+     },
+     configureServer(server) {

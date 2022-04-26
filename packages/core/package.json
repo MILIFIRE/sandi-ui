@@ -1,0 +1,11 @@
+{
+    "name": "@sandi-ui/core",
+    "private": true,
+    "license": "MIT",
+    "main": "index.ts",
+    "module": "index.ts",
+    "peerDependencies": {
+        "three": "^0.139.2",
+        "vue": "^3.2.0"
+    }
+}

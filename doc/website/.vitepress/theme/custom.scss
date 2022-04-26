@@ -1,0 +1,42 @@
+// @import 'element-plus/dist/index.css';
+
+html {
+  overflow-y: overlay;
+}
+:root {
+  --c-brand: #306eed;
+}
+// ::-webkit-scrollbar-track {
+//   background-color: transparent;
+// }
+details > summary {
+  cursor: pointer;
+  user-select: none;
+}
+.page .container {
+  max-width: 1000px;
+}
+pre {
+  // max-width: 100%;
+  // display: inline-block;
+  // width: fit-content;
+  margin: 0;
+  // padding: 0.2em 0.4em 0.1em;
+  // vertical-align: middle;
+  // color: #333;
+  // font-size: 85%;
+  // white-space: pre-wrap;
+  // word-break: break-all;
+  // background: hsla(0, 0%, 58.8%, 0.1);
+  // border: 1px solid hsla(0, 0%, 39.2%, 0.2);
+  // border-radius: 3px;
+  overflow: auto;
+  overflow: overlay;
+}
+div[class*='language-'] {
+  max-width: 920px;
+  // margin-right: 0;
+  pre {
+    overflow: overlay;
+  }
+}

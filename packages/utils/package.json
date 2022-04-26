@@ -1,0 +1,10 @@
+{
+  "name": "@sandi-ui/utils",
+  "private": true,
+  "license": "MIT",
+  "main": "index.ts",
+  "module": "index.ts",
+  "peerDependencies": {
+      "vue":"^3.2.33"
+  }
+}

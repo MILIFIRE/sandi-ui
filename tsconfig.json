@@ -1,0 +1,28 @@
+{
+    "extends": "@vue/tsconfig/tsconfig.web.json",
+    "compilerOptions": {
+        "allowJs": true,
+        "module": "ES6",
+        "target": "ES2018",
+        "noImplicitAny": false,
+        "sourceMap": false,
+        "isolatedModules": true,
+        "preserveValueImports": true,
+        "lib": [
+            "ES2018",
+            "DOM",
+            "DOM.Iterable",
+            "ES2019"
+        ],
+        "allowSyntheticDefaultImports": true,
+    },
+    "include": [
+        "packages",
+        "typings"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/dist",
+        "**/__tests__/**/*"
+    ]
+}

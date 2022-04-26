@@ -1,0 +1,53 @@
+{
+    "name": "sandi-ui",
+    "version": "1.0.0-beta.0.",
+    "description": "vue3 3D component library based on three",
+    "keywords": [
+        "sandi-ui",
+        "threejs",
+        "component library",
+        "ui framework",
+        "ui",
+        "vue"
+    ],
+    "type": "module",
+    "main": "lib/index.js",
+    "module": "es/index.mjs",
+    "unpkg": "dist/index.full.js",
+    "jsdelivr": "dist/index.full.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MILIFIRE/sandi-ui"
+    },
+    "exports": {
+        ".": {
+            "require": "./lib/index.js",
+            "import": "./es/index.mjs"
+        },
+        "./es": "./es/index.mjs",
+        "./lib": "./lib/index.js",
+        "./es/*.mjs": "./es/*.mjs",
+        "./es/*": "./es/*.mjs",
+        "./lib/*.js": "./lib/*.js",
+        "./lib/*": "./lib/*.js",
+        "./*": "./*"
+    },
+    "peerDependencies": {
+        "vue": "^3.2.0",
+        "three": "^0.139.2"
+    },
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/three": "*"
+    },
+    "browserslist": [
+        "> 1%",
+        "not ie 11",
+        "not op_mini all"
+    ]
+}
