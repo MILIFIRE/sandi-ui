@@ -8,6 +8,7 @@ export default {
     enhanceApp({ app, router, siteData }) {
         app.component('DemoContainer', DemoContainer);
         app.use(elementPlus)
+        app.config.globalProperties.$withBase = relativePath => `/sandi-ui/${relativePath}`
         app.mixin({
             mounted() {
                 if (window) {

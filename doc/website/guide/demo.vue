@@ -49,17 +49,17 @@ const lock = ref(false);
             <SDMesh :positionZ="4" :scaleXYZ="5">
                 <SDBoxGeometry :width="1" />
                 <SDMeshBasicMaterial>
-                    <SDTextureLoader url="/img/crate.gif" type="map" />
+                    <SDTextureLoader :url="$withBase('/img/crate.gif')" type="map" />
                 </SDMeshBasicMaterial>
             </SDMesh>
             <SDGroup :scaleXYZ="0.5" :positionX="-4">
-                <SDFBXLoader url="/fbx/Rumba Dancing.fbx">
+                <SDFBXLoader :url="$withBase('/fbx/Rumba Dancing.fbx')">
                     <SDMeshBasicMaterial meshName="body1">
-                        <SDTextureLoader url="/img/zhangfei.jpg" type="map" />
+                        <SDTextureLoader :url="$withBase('/img/zhangfei.jpg')" type="map" />
                     </SDMeshBasicMaterial>
                     <SDMeshBasicMaterial meshName="face">
-                        <SDTextureLoader url="/img/crate.gif" type="map" :disabled="!flag" />
-                        <SDTextureLoader url="/img/face.png" type="map" :disabled="flag" />
+                        <SDTextureLoader :url="$withBase('/img/crate.gif')" type="map" :disabled="!flag" />
+                        <SDTextureLoader :url="$withBase('/img/face.png')" type="map" :disabled="flag" />
                     </SDMeshBasicMaterial>
                     <SDAnimationMixer>
                         <SDAnimationAction :id="0" :weight="value1" :statue="state" :timeScale="value3" />
@@ -67,13 +67,13 @@ const lock = ref(false);
                 </SDFBXLoader>
             </SDGroup>
             <SDGroup :scaleXYZ="0.5" :positionX="0">
-                <SDFBXLoader url="/fbx/Rumba Dancing.fbx">
+                <SDFBXLoader :url="$withBase('/fbx/Rumba Dancing.fbx')">
                     <SDMeshBasicMaterial meshName="body1">
-                        <SDTextureLoader url="/img/zhangfei.jpg" type="map" />
+                        <SDTextureLoader :url="$withBase('/img/zhangfei.jpg')" type="map" />
                     </SDMeshBasicMaterial>
                     <SDMeshBasicMaterial meshName="face">
-                        <SDTextureLoader url="/img/crate.gif" type="map" :disabled="!flag" />
-                        <SDTextureLoader url="/img/face.png" type="map" :disabled="flag" />
+                        <SDTextureLoader :url="$withBase('/img/crate.gif')" type="map" :disabled="!flag" />
+                        <SDTextureLoader :url="$withBase('/img/face.png')" type="map" :disabled="flag" />
                     </SDMeshBasicMaterial>
                     <SDAnimationMixer>
                         <SDAnimationAction :id="0" :weight="value1" :statue="state" :timeScale="value3" />
@@ -81,13 +81,13 @@ const lock = ref(false);
                 </SDFBXLoader>
             </SDGroup>
             <SDGroup :scaleXYZ="0.5" :positionX="4">
-                <SDFBXLoader url="/fbx/Rumba Dancing.fbx">
+                <SDFBXLoader :url="$withBase('/fbx/Rumba Dancing.fbx')">
                     <SDMeshBasicMaterial meshName="body1">
-                        <SDTextureLoader url="/img/zhangfei.jpg" type="map" />
+                        <SDTextureLoader :url="$withBase('/img/zhangfei.jpg')" type="map" />
                     </SDMeshBasicMaterial>
                     <SDMeshBasicMaterial meshName="face">
-                        <SDTextureLoader url="/img/crate.gif" type="map" :disabled="!flag" />
-                        <SDTextureLoader url="/img/face.png" type="map" :disabled="flag" />
+                        <SDTextureLoader :url="$withBase('/img/crate.gif')" type="map" :disabled="!flag" />
+                        <SDTextureLoader :url="$withBase('/img/face.png')" type="map" :disabled="flag" />
                     </SDMeshBasicMaterial>
                     <SDAnimationMixer>
                         <SDAnimationAction :id="0" :weight="value1" :statue="state" :timeScale="value3" />

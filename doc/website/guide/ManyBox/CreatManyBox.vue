@@ -7,13 +7,13 @@
             <SDMesh :positionX="-2" :scaleXYZ="2">
                 <SDBoxGeometry :width="1" />
                 <SDMeshBasicMaterial>
-                    <SDTextureLoader url="/img/crate.gif" type="map" />
+                    <SDTextureLoader :url="$withBase('/img/crate.gif')" type="map" />
                 </SDMeshBasicMaterial>
             </SDMesh>
-            <SDMesh :positionX="2"  :scaleXYZ="2">
+            <SDMesh :positionX="2" :scaleXYZ="2">
                 <SDBoxGeometry :width="1" />
                 <SDMeshBasicMaterial>
-                    <SDTextureLoader url="/img/crate.gif" type="map" />
+                    <SDTextureLoader :url="$withBase('/img/crate.gif')" type="map" />
                 </SDMeshBasicMaterial>
             </SDMesh>
         </SDScene>

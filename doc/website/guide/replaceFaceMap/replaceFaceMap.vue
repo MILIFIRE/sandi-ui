@@ -9,14 +9,11 @@ const render = () => {
 </script>
 
 <template>
-    <el-button
-      @click="
+    <el-button @click="
         () => {
-          flag = !flag;
+            flag = !flag;
         }
-      "
-      >点击三弟变脸</el-button
-    >
+    ">点击三弟变脸</el-button>
     <SDWebglRenderer :width="720" :height="360" :backgroundColor="0x1f63d1" :backgroundAlpha="0.5"
         :renderCallback="render">
         <SDPerspectiveCamera :positionX="2.8" :positionY="5" :positionZ="16" :rotationX="1" :rotationY="0.01"
@@ -25,13 +22,13 @@ const render = () => {
         <SDScene>
             <SDTransformControls />
             <SDGroup :positionY="-7" :rotationY="rY">
-                <SDFBXLoader url="/fbx/Rumba Dancing.fbx">
+                <SDFBXLoader :url="$withBase('/fbx/Rumba Dancing.fbx')">
                     <SDMeshBasicMaterial meshName="body1">
-                        <SDTextureLoader url="/img/zhangfei.jpg" type="map" />
+                        <SDTextureLoader :url="$withBase('/img/zhangfei.jpg')" type="map" />
                     </SDMeshBasicMaterial>
                     <SDMeshBasicMaterial meshName="face">
-                        <SDTextureLoader url="/img/face.png" type="map"  :disabled="!flag" />
-                        <SDTextureLoader url="/img/cry.png" type="map"  :disabled="flag" />
+                        <SDTextureLoader :url="$withBase('/img/face.png')" type="map" :disabled="!flag" />
+                        <SDTextureLoader :url="$withBase('/img/cry.png')" type="map" :disabled="flag" />
                     </SDMeshBasicMaterial>
                     <SDAnimationMixer>
                         <SDAnimationAction />
