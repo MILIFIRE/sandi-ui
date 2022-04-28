@@ -9,12 +9,12 @@ const getY = () => Math.floor(Math.random() * 20) * 20 + 10
     <SDWebglRenderer :width="862" :height="400" :backgroundColor="0x1f63d1" :backgroundAlpha="0.5" @click="() => {
         lock = true
     }">
-        <SDPerspectiveCamera :positionY="0" />
         <!-- <SDOrbitControls /> -->
         <SDPointerLockControls :lock="lock" :unlockCallback="() => {
             lock = false
-        }" :options="{ junpHeight: 350 }" />
+        }" :options="{ junpHeight: 300, characterHeight: 10, moveScale: 400, mass: 100, movingResistance: 10 }" />
         <SDScene>
+            <SDPerspectiveCamera :positionY="0" />
             <SDMesh :rotationX="- Math.PI / 2">
                 <SDPlaneGeometry :width="2000" :height="2000" />
                 <SDMeshBasicMaterial>

@@ -1,12 +1,12 @@
 <template>
     <SDWebglRenderer :width="720" :height="360" :backgroundColor="0x1f63d1">
-        <SDPerspectiveCamera :positionX="0.5" :positionY="4" :positionZ="16.9" />
         <SDOrbitControls />
         <SDScene>
-        <SDTransformControls />
-            <SDMesh :positionZ="4" :scaleXYZ="5">
+            <SDPerspectiveCamera :positionZ="2" />
+            <SDTransformControls />
+            <SDMesh>
                 <SDBoxGeometry :width="1" />
-                <SDMeshBasicMaterial >
+                <SDMeshBasicMaterial>
                     <SDTextureLoader url="/img/crate.gif" type="map" />
                 </SDMeshBasicMaterial>
             </SDMesh>

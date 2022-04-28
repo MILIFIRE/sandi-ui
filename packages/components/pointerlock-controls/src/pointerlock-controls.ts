@@ -1,26 +1,13 @@
 import { inject } from 'vue';
 import { Camera, Vector3, Mesh, Raycaster, Scene, Vector2, Clock } from "three"
 import type { WebGLRendererWrap } from "@sandi-ui/modules"
-import { getCore, getNow } from "@sandi-ui/utils"
+import { getCore, getNow, isMesh } from "@sandi-ui/utils"
 import { RENDER_ID } from "@sandi-ui/constants"
 
 import { OrbitControls, PointerLockControls } from '@sandi-ui/modules';
 const mouse = new Vector2();
 
-const isMesh = (object: any) => {
-    if (object.isMesh) {
-        return true
-    } else {
-        false
-    }
-}
-const isOrbit = (object: any) => {
-    if (object instanceof OrbitControls) {
-        return true
-    } else {
-        false
-    }
-}
+
 //  场景
 const usePointerLockControls = (camera: Camera | undefined, domElement: HTMLCanvasElement | undefined) => {
     // init renderNode camera domElement
@@ -40,7 +27,7 @@ const usePointerLockControls = (camera: Camera | undefined, domElement: HTMLCanv
     }
     // about use PointerLockControls logic
     let control;
-    let unMounted;
+    let remove;
     let moveForward = false;
     let moveBackward = false;
     let moveLeft = false;
@@ -53,11 +40,12 @@ const usePointerLockControls = (camera: Camera | undefined, domElement: HTMLCanv
 
     // about character behavior
     let gravity = 9.8
-    let mass = 100.0
-    let moveScale = 400.0
-    let movingResistance = 10.0
-    let characterHeight = 10.0
-    let junpHeight = 100.0
+    let mass = 1.0
+    let moveScale = 10.0
+    let movingResistance = 1.0
+    let characterHeight = 1.0
+    let junpHeight = 1.0
+
 
     const execute = (callbackName: string) => {
         if (callBack[callbackName]) {
@@ -86,11 +74,12 @@ const usePointerLockControls = (camera: Camera | undefined, domElement: HTMLCanv
                 execute('lock')
             }
         });
-
         control.addEventListener('unlock', function () {
-            if (callBack.unlock) {
-                execute('unlock')
-            }
+            setTimeout(() => {
+                if (callBack.unlock) {
+                    execute('unlock')
+                }
+            }, 1000)
         });
         const onKeyDown = function (event) {
             event.preventDefault();
@@ -159,7 +148,7 @@ const usePointerLockControls = (camera: Camera | undefined, domElement: HTMLCanv
                     // raycaster init
                     raycaster.far = characterHeight;
                     raycaster.ray.origin.copy(control.getObject().position);
-                    raycaster.ray.origin.y -= characterHeight;
+                    // raycaster.ray.origin.y -= characterHeight;
                     // find Mesh
                     const childrens = core.getChildrens(parentId)
                     const Meshs = childrens.filter(item => isMesh(item.node)).map(item => item.node) as Mesh[]
@@ -203,7 +192,7 @@ const usePointerLockControls = (camera: Camera | undefined, domElement: HTMLCanv
             }
             renderNode?.node.setCallBack(renderFN)
         }
-        unMounted = () => {
+        remove = () => {
             window.removeEventListener('keydown', onKeyDown);
             window.removeEventListener('keyup', onKeyUp);
         }
@@ -211,7 +200,7 @@ const usePointerLockControls = (camera: Camera | undefined, domElement: HTMLCanv
     } else {
         console.log('not found any camere or domelement')
     }
-    return { instance: control, setCallBack, unMounted, setCharacter }
+    return { instance: control, setCallBack, remove, setCharacter }
 
 }
 export default usePointerLockControls

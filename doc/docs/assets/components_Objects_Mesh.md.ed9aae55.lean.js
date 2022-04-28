@@ -1,1 +1,0 @@
-import{_ as a,c as s,o as n,a as t}from"./app.54f14ea2.js";const h='{"title":"mesh","description":"","frontmatter":{},"headers":[],"relativePath":"components/Objects/Mesh.md"}',e={},p=t("",3),o=[p];function c(l,u,r,i,k,_){return n(),s("div",null,o)}var m=a(e,[["render",c]]);export{h as __pageData,m as default};

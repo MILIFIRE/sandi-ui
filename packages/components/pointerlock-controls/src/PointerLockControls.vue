@@ -1,5 +1,5 @@
 <script  lang="ts">
-import { watch, type PropType } from "vue";
+import { onUnmounted, watch, type PropType } from "vue";
 import { onMounted, defineComponent } from "vue";
 import usePointerLockControls from "./pointerlock-controls";
 import { Camera } from "three";
@@ -33,7 +33,7 @@ export default defineComponent({
     },
     setup(props) {
         onMounted(() => {
-            const { instance, setCharacter, setCallBack } = usePointerLockControls(props.camera, props.domElement);
+            const { instance, setCharacter, setCallBack, remove } = usePointerLockControls(props.camera, props.domElement);
             if (props.lock) {
                 instance.lock();
             }
@@ -53,7 +53,13 @@ export default defineComponent({
             if (props.unlockCallback) {
                 setCallBack('unlock', props.unlockCallback)
             }
+            onUnmounted(() => {
+                if (remove) {
+                    remove()
+                }
+            })
         });
+
     },
 });
 </script>

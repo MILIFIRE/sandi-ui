@@ -86,36 +86,36 @@ const getGuide = () => [{
     }]
 }]
 export const config: UserConfig = {
-  // base: '/sudi-ui_doc/',
-  lang: 'zh-CN',
-  title: process.env.npm_package_name,
-  description: process.env.npm_package_description,
+    // base: '/sudi-ui_doc/',
+    lang: 'zh-CN',
+    title: process.env.npm_package_name,
+    description: process.env.npm_package_description,
 
-  // https://vitepress.vuejs.org/guide/markdown.html#advanced-configuration
-  markdown: {
-    lineNumbers: true,
-    config: (md: MarkdownIt) => {
-      md.use(markdownItCheckbox);
-      md.use(markdownItDemo);
+    // https://vitepress.vuejs.org/guide/markdown.html#advanced-configuration
+    markdown: {
+        lineNumbers: true,
+        config: (md: MarkdownIt) => {
+            md.use(markdownItCheckbox);
+            md.use(markdownItDemo);
+        },
     },
-  },
 
-  themeConfig: {
-    nav: [
-      { text: '指南', link: '/guide/install', activeMatch: '^/guide/' },
-      { text: '组件', link: '/components/Renderers/index', activeMatch: '^/components/' },
-    //   {
-    //     text: '发布日志',
-    //     link: '/changelog',
-    //   },
-      // {
-      //   text: 'Github',
-      //   link: 'https://github.com/todo',
-      // },
-    ],
-    sidebar: {
-        '/guide/': getGuide(),
-        '/components/': getComponents()
-    }
-  },
+    themeConfig: {
+        nav: [
+            { text: '指南', link: '/guide/install', activeMatch: '^/guide/' },
+            { text: '组件', link: '/components/Renderers/index', activeMatch: '^/components/' },
+            //   {
+            //     text: '发布日志',
+            //     link: '/changelog',
+            //   },
+            {
+                text: 'Github',
+                link: 'https://github.com/MILIFIRE/sandi-ui',
+            },
+        ],
+        sidebar: {
+            '/guide/': getGuide(),
+            '/components/': getComponents()
+        }
+    },
 };

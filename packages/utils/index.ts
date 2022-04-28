@@ -1,6 +1,7 @@
 import type { Plugin } from "vue";;
 import { getCurrentInstance } from "vue";
 import type v3dCore from "@sandi-ui/core"
+import { OrbitControls } from "@sandi-ui/modules"
 type SFCInstallWrap<T> = T & Plugin
 export const installComponentWrap = <T>(name: string, component: T) => {
     (component as SFCInstallWrap<T>).install = (app): void => {
@@ -18,4 +19,18 @@ export const getCore = () => {
 }
 export const getNow = (): number => {
     return (typeof performance === 'undefined' ? Date : performance).now();
+}
+export const isMesh = (object: any) => {
+    if (object.isMesh) {
+        return true
+    } else {
+        false
+    }
+}
+export const isOrbit = (object: any) => {
+    if (object instanceof OrbitControls) {
+        return true
+    } else {
+        false
+    }
 }

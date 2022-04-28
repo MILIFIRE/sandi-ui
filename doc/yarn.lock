@@ -7489,6 +7489,11 @@ safe-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
+sandi-ui@^1.0.0-beta.0:
+  version "1.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/sandi-ui/-/sandi-ui-1.0.0-beta.0.tgz#cc92c4e009dce3e8d4de28675c40bb3acbe2f695"
+  integrity sha512-Kz0+AXMKJaGS3pUiXGuzFtmMe70eScsLTY4DfedUZaGhY4iqfPUZPpT2+InMm8aiHGLGKWH+QTeVhPebgu9OgA==
+
 sane@^4.0.3:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/sane/-/sane-4.1.0.tgz#ed881fd922733a6c461bc189dc2b6c006f3ffded"

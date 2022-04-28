@@ -12,7 +12,7 @@ export default {
             mounted() {
                 if (window) {
                     if (!window.sandiUi) {
-                        import('../../../../dist/es/index.mjs').then(function (m) {
+                        import("../../../../dist/sandi-ui/es/index.mjs").then(function (m) {
                             app.use(m.default)
                         })
                         window.sandiUi = true

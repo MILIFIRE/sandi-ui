@@ -1,27 +1,13 @@
 import { inject } from 'vue';
 import { Camera, MathUtils, Mesh, Raycaster, Scene, Vector2 } from "three"
 import type { WebGLRendererWrap } from "@sandi-ui/modules"
-import { getCore } from "@sandi-ui/utils"
+import { getCore, isMesh, isOrbit } from "@sandi-ui/utils"
 import { RENDER_ID } from "@sandi-ui/constants"
 
 import { OrbitControls, TransformControls } from '@sandi-ui/modules';
 import { EventType } from '@sandi-ui/enum';
 const mouse = new Vector2();
 
-const isMesh = (object: any) => {
-    if (object.isMesh) {
-        return true
-    } else {
-        false
-    }
-}
-const isOrbit = (object: any) => {
-    if (object instanceof OrbitControls) {
-        return true
-    } else {
-        false
-    }
-}
 //  场景
 const useTransformControls = (camera: Camera | undefined, domElement: HTMLCanvasElement | undefined) => {
     const core = getCore()
