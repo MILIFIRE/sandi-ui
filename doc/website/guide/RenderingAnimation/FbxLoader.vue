@@ -16,7 +16,7 @@ const render = () => {
         <SDScene>
             <SDTransformControls />
             <SDGroup :positionY="-7" :rotationY="rY">
-                <SDFBXLoader :url="$withBase('/fbx/Rumba Dancing.fbx')">
+                <SDFBXLoader url="/sandi-ui/fbx/Rumba Dancing.fbx">
                     <SDMeshBasicMaterial meshName="body1" :color="0xff0000" />
                 </SDFBXLoader>
             </SDGroup>

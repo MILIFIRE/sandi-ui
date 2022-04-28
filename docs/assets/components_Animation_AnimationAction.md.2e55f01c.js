@@ -1,0 +1,1 @@
+import{_ as t,c as e,o as n}from"./app.e9e195c8.js";const d='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"components/Animation/AnimationAction.md"}',o={};function a(r,c,i,s,p,_){return n(),e("div")}var f=t(o,[["render",a]]);export{d as __pageData,f as default};

@@ -43,13 +43,13 @@ const flag = ref(false);
         <SDOrbitControls />
         <SDScene>
             <SDGroup :scaleXYZ="0.5" :positionX="0">
-                <SDFBXLoader :url="$withBase('/fbx/Rumba Dancing.fbx')">
+                <SDFBXLoader url="/sandi-ui/fbx/Rumba Dancing.fbx">
                     <SDMeshBasicMaterial meshName="body1">
-                        <SDTextureLoader :url="$withBase('/img/zhangfei.jpg')" type="map" />
+                        <SDTextureLoader url="/sandi-ui/img/zhangfei.jpg" type="map" />
                     </SDMeshBasicMaterial>
                     <SDMeshBasicMaterial meshName="face">
-                        <SDTextureLoader :url="$withBase('/img/crate.gif')" type="map" :disabled="!flag" />
-                        <SDTextureLoader :url="$withBase('/img/face.png')" type="map" :disabled="flag" />
+                        <SDTextureLoader url="/sandi-ui/img/crate.gif" type="map" :disabled="!flag" />
+                        <SDTextureLoader url="/sandi-ui/img/face.png" type="map" :disabled="flag" />
                     </SDMeshBasicMaterial>
                     <SDAnimationMixer>
                         <SDAnimationAction :id="0" :weight="value1" :statue="state" :timeScale="value3" />

@@ -58,11 +58,11 @@ const flag = ref(false);
             <SDGroup :scaleXYZ="1.5">
                 <SDMesh>
                     <SDMeshBasicMaterial>
-                        <SDTextureLoader :url="$withBase('/img/crate.gif')" type="map" :disabled="flag" />
-                        <SDTextureLoader :url="$withBase('/img/zhangfei.jpg')" type="map" :disabled="!flag" />
+                        <SDTextureLoader url="/sandi-ui/img/crate.gif" type="map" :disabled="flag" />
+                        <SDTextureLoader url="/sandi-ui/img/zhangfei.jpg" type="map" :disabled="!flag" />
                     </SDMeshBasicMaterial>
                     <SDGroup :positionY="0.5">
-                        <SDGLTFLoader :url="$withBase('/gltf/Xbot.glb')">
+                        <SDGLTFLoader url="/sandi-ui/gltf/Xbot.glb">
                             <SDAnimationMixer>
                                 <SDAnimationAction :id="value2" :weight="value1" :statue="state" :timeScale="value3" />
                             </SDAnimationMixer>

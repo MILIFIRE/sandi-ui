@@ -13,8 +13,8 @@ const flag = ref(true);
             <SDMesh :positionZ="4" :scaleXYZ="5">
                 <SDBoxGeometry :width="1" />
                 <SDMeshBasicMaterial>
-                    <SDTextureLoader :url="$withBase('/img/crate.gif')" type="map" :disabled="!flag" />
-                    <SDTextureLoader :url="$withBase('/img/zhangfei.jpg')" type="map" :disabled="flag" />
+                    <SDTextureLoader url="/sandi-ui/img/crate.gif" type="map" :disabled="!flag" />
+                    <SDTextureLoader url="/sandi-ui/img/zhangfei.jpg" type="map" :disabled="flag" />
                 </SDMeshBasicMaterial>
             </SDMesh>
         </SDScene>

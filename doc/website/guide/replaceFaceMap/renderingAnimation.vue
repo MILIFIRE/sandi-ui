@@ -16,12 +16,12 @@ const render = () => {
         <SDScene>
             <SDTransformControls />
             <SDGroup :positionY="-7" :rotationY="rY">
-                <SDFBXLoader :url="$withBase('/fbx/Rumba Dancing.fbx')">
+                <SDFBXLoader url="/sandi-ui/fbx/Rumba Dancing.fbx">
                     <SDMeshBasicMaterial meshName="body1">
-                        <SDTextureLoader :url="$withBase('/img/zhangfei.jpg')" type="map" />
+                        <SDTextureLoader url="/sandi-ui/img/zhangfei.jpg" type="map" />
                     </SDMeshBasicMaterial>
                     <SDMeshBasicMaterial meshName="face">
-                        <SDTextureLoader :url="$withBase('/img/face.png')" type="map" />
+                        <SDTextureLoader url="/sandi-ui/img/face.png" type="map" />
                     </SDMeshBasicMaterial>
                     <SDAnimationMixer>
                         <SDAnimationAction />
