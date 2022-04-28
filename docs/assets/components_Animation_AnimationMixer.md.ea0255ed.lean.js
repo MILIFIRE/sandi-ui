@@ -1,1 +1,0 @@
-import{_ as t,c as e,o as a}from"./app.5bf01db6.js";const d='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"components/Animation/AnimationMixer.md"}',n={};function o(r,i,c,s,p,_){return a(),e("div")}var f=t(n,[["render",o]]);export{d as __pageData,f as default};
