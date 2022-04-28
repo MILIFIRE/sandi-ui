@@ -90,7 +90,7 @@ export const config: UserConfig = {
     lang: 'zh-CN',
     title: process.env.npm_package_name,
     description: process.env.npm_package_description,
-
+    base: '/sandi-ui/',
     // https://vitepress.vuejs.org/guide/markdown.html#advanced-configuration
     markdown: {
         lineNumbers: true,
