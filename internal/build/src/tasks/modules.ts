@@ -6,16 +6,19 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import esbuild from 'rollup-plugin-esbuild'
 import glob from 'fast-glob'
-import { sdRoot, pkgRoot, sdPackage } from '../propject-path'
+import { sdRoot, pkgRoot, sdPackage } from '../project-path'
 import type { ProjectManifest } from '@pnpm/types'
 import { buildConfigEntries, target } from '../build-info'
 
 import type { OutputOptions } from 'rollup'
+
+// 获取包依赖清单
 export const getPackageManifest = (pkgPath: string) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     return require(pkgPath) as ProjectManifest
 }
 
+// 获取包依赖
 export const getPackageDependencies = (
     pkgPath: string
 ): Record<'dependencies' | 'peerDependencies', string[]> => {
@@ -27,6 +30,8 @@ export const getPackageDependencies = (
         peerDependencies: Object.keys(peerDependencies),
     }
 }
+
+// 生成拓展
 export const generateExternal = async (options: { full: boolean }) => {
     const { dependencies, peerDependencies } = getPackageDependencies(sdPackage)
 
@@ -42,16 +47,20 @@ export const generateExternal = async (options: { full: boolean }) => {
     }
 }
 
+// 写入包
 export function writeBundles(bundle: RollupBuild, options: OutputOptions[]) {
     return Promise.all(options.map((option) => bundle.write(option)))
 }
 
+// 排除文件
 export const excludeFiles = (files: string[], prev: string) => {
     const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
     return files.filter(
         (path) => !excludes.some((exclude) => path.includes(exclude, prev.length))
     )
 }
+
+// 构建模块
 export const buildModules = async () => {
     // 获取 所有需要打包的文件
     const input = excludeFiles(
@@ -61,6 +70,7 @@ export const buildModules = async () => {
             onlyFiles: true,
         }), pkgRoot
     )
+
     // 执行打包
     const bundle = await rollup({
         input,
@@ -84,6 +94,7 @@ export const buildModules = async () => {
         external: await generateExternal({ full: false }), // 不打包外部引用
         treeshake: false, // 不进行摇树
     })
+    //
     await writeBundles(
         bundle,
         buildConfigEntries.map(([module, config]): OutputOptions => {

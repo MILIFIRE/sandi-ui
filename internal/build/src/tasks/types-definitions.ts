@@ -20,7 +20,7 @@ import {
     sdRoot,
     pkgRoot,
     projRoot,
-} from '../propject-path'
+} from '../project-path'
 import {
     excludeFiles,
 } from '../utils'
@@ -33,7 +33,8 @@ import type { SourceFile } from 'ts-morph'
 // ts config 读取
 const TSCONFIG_PATH = path.resolve(projRoot, 'tsconfig.json')
 console.log("TSCONFIG_PATH:-------------------------", TSCONFIG_PATH)
-// 刷出文件地址
+
+// 输出文件地址
 const outDir = path.resolve(buildOutput, 'types')
 
 // Type safe list. The TS errors are not all fixed yet, so we need a list of which files are fixed with TS errors to prevent accidental TS errors.
