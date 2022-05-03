@@ -8,11 +8,14 @@ import { OrbitControls, TransformControls } from '@sandi-ui/modules';
 import { EventType } from '@sandi-ui/enum';
 const mouse = new Vector2();
 
-//  场景
 const useTransformControls = (camera: Camera | undefined, domElement: HTMLCanvasElement | undefined) => {
     const core = getCore()
     let renderId: number | undefined;
     let windowSize: { width: number, height: number };
+    let control: TransformControls;
+    let remove;
+
+
     if (!camera && !domElement) {
         renderId = inject<number | undefined>(RENDER_ID);
 
@@ -27,7 +30,6 @@ const useTransformControls = (camera: Camera | undefined, domElement: HTMLCanvas
         }
     }
     if (camera && domElement) {
-        let control: TransformControls;
         control = new TransformControls(camera, domElement);
         const { parentId, id } = core.addNode(control);
         if (parentId) {
@@ -43,8 +45,6 @@ const useTransformControls = (camera: Camera | undefined, domElement: HTMLCanvas
                     const childrens = core.getChildrens(parentId)
                     const Meshs = childrens.filter(item => isMesh(item.node)).map(item => item.node) as Mesh[]
                     const intersections = raycaster.intersectObjects(Meshs, true);
-                    console.log('Meshs:', Meshs)
-                    console.log('intersections:', intersections)
                     if (intersections.length > 0) {
 
                         const findeObject = intersections[0].object;
@@ -59,111 +59,58 @@ const useTransformControls = (camera: Camera | undefined, domElement: HTMLCanvas
                 }
 
             }
-            domElement.addEventListener('click', onClick);
-        }
-        control.addEventListener('dragging-changed', (event) => {
-            if (renderId) {
-                const renderNode = core.getNode<WebGLRendererWrap>(renderId);
-                if (renderNode.children) {
-                    const childrenNode = renderNode.children.map(item => core.getNode(item))
-                    const orbit = childrenNode.find(item => isOrbit(item.node))
-                    if (orbit) {
-                        orbit.node.enabled = !event.value;
+            const draggingChanged = (event) => {
+                if (renderId) {
+                    const renderNode = core.getNode<WebGLRendererWrap>(renderId);
+                    if (renderNode.children) {
+                        const childrenNode = renderNode.children.map(item => core.getNode(item))
+                        const orbit = childrenNode.find(item => isOrbit(item.node))
+                        if (orbit) {
+                            orbit.node.enabled = !event.value;
+                        }
                     }
-
                 }
-
             }
-        });
-        window.addEventListener('keydown', (event: KeyboardEvent) => {
-            console.log('domElement:', domElement)
-            switch (event.code) {
-
-                case 'KeyQ': // Q
-                    control.setSpace(control.space === 'local' ? 'world' : 'local');
-                    break;
-
-
-
-                case 'KeyW': // W
-
-                    control.setMode('translate');
-                    break;
-
-                case 'KeyE': // E
-
-                    control.setMode('rotate');
-                    break;
-
-                case 'KeyR': // R
-                    control.setMode('scale');
-                    break;
-
-                // case 67: // C
-                //     const position = currentCamera.position.clone();
-
-                //     currentCamera = currentCamera.isPerspectiveCamera ? cameraOrtho : cameraPersp;
-                //     currentCamera.position.copy( position );
-
-                //     orbit.object = currentCamera;
-                //     control.camera = currentCamera;
-
-                //     currentCamera.lookAt( orbit.target.x, orbit.target.y, orbit.target.z );
-                //     onWindowResize();
-                //     break;
-
-                // case 86: // V
-                //     const randomFoV = Math.random() + 0.1;
-                //     const randomZoom = Math.random() + 0.1;
-
-                //     cameraPersp.fov = randomFoV * 160;
-                //     cameraOrtho.bottom = - randomFoV * 500;
-                //     cameraOrtho.top = randomFoV * 500;
-
-                //     cameraPersp.zoom = randomZoom * 5;
-                //     cameraOrtho.zoom = randomZoom * 5;
-                //     onWindowResize();
-                //     break;
-
-                // case 187:
-                // case 107: // +, =, num+
-                //     control.setSize( control.size + 0.1 );
-                //     break;
-
-                // case 189:
-                // case 109: // -, _, num-
-                //     control.setSize( Math.max( control.size - 0.1, 0.1 ) );
-                //     break;
-
-                // case 88: // X
-                //     control.showX = ! control.showX;
-                //     break;
-
-                // case 89: // Y
-                //     control.showY = ! control.showY;
-                //     break;
-
-                // case 90: // Z
-                //     control.showZ = ! control.showZ;
-                //     break;
-
-                // case 32: // Spacebar
-                //     control.enabled = ! control.enabled;
-                //     break;
-
-                // case 27: // Esc
-                //     control.reset();
-                //     break;
-
+            const keydown = (event: KeyboardEvent) => {
+                switch (event.code) {
+                    case 'KeyQ': // Q
+                        control.setSpace(control.space === 'local' ? 'world' : 'local');
+                        break;
+                    case 'KeyW': // W
+                        control.setMode('translate');
+                        break;
+                    case 'KeyE': // E
+                        control.setMode('rotate');
+                        break;
+                    case 'KeyR': // R
+                        control.setMode('scale');
+                        break;
+                    case 'Equal': // +, =, num+
+                        control.setSize(control.size + 0.1);
+                        break;
+                    case 'Minus': // -, _, num-
+                        control.setSize(Math.max(control.size - 0.1, 0.1));
+                        break;
+                    case "Escape": // Esc
+                        control.reset();
+                        break;
+                }
             }
+            domElement.addEventListener('click', onClick);
+            control.addEventListener('dragging-changed', draggingChanged);
+            domElement.parentElement?.addEventListener('keydown', keydown, false);
+            remove = () => {
+                domElement?.parentElement?.removeEventListener('keydown', keydown)
+                domElement?.removeEventListener('click', onClick);
+                control?.removeEventListener('dragging-changed', draggingChanged)
+                control?.dispose()
+            }
+        }
+        return { instance: control, remove }
 
-        }, false);
-
-
-        return { instance: control }
     } else {
-        console.log('未找到摄像机 或  dom 元素')
-        return { instance: undefined }
+        console.warn("not found any camera render")
     }
+    return { instance: undefined, remove }
 }
 export default useTransformControls

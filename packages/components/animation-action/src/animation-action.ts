@@ -6,18 +6,18 @@ const useAnimationAction = (mixer: undefined | AnimationMixer, clip: undefined |
     const core = getCore()
     let instance: AnimationAction;
     let animations: AnimationClip[] = [];
-    const { parentId, id } = core.getParentAndId()
+    const { parentId, id } = core.addNode({})
 
-    const setAnimationClip = (id: string | number | undefined) => {
+    const setAnimationClip = (clipId: string | number | undefined) => {
         let clip
-        switch (typeof id) {
+        switch (typeof clipId) {
             case "string":
                 clip = animations.find(item =>
-                    item.name == id
+                    item.name == clipId
                 )
                 break
             case "number":
-                clip = animations[id];
+                clip = animations[clipId];
                 break
             default:
                 clip = animations[0];
@@ -28,9 +28,9 @@ const useAnimationAction = (mixer: undefined | AnimationMixer, clip: undefined |
             }
             instance = mixer.clipAction(clip)
             instance.play()
-
+            core.setNode(id, instance)
         } else {
-            console.log('动画不存在')
+            console.log('anmiations action not found')
         }
     }
     const setWeight = (weight: number) => {
@@ -67,12 +67,6 @@ const useAnimationAction = (mixer: undefined | AnimationMixer, clip: undefined |
     const getInstance = () => {
         return instance
     }
-    // if (mixer && clip) {
-    //     instance = mixer.clipAction(clip)
-    //     setAnimationClip(props.id)
-    //     setProps(weight, timeScale, loopMode, loop, statue);
-
-    // }
     if (parentId) {
         core.addEventListenerById(parentId, EventType.AnimationMixerLoaded, (event) => {
             const { mixer: _mixer, animations: _animations } = event
@@ -83,7 +77,9 @@ const useAnimationAction = (mixer: undefined | AnimationMixer, clip: undefined |
             setProps(weight, timeScale, loopMode, loop, statue);
         })
     }
-
-    return { getInstance, setAnimationClip, setWeight, setProps }
+    const remove = () => {
+        core.delNode(id)
+    }
+    return { getInstance, setAnimationClip, setWeight, setProps, remove }
 }
 export default useAnimationAction

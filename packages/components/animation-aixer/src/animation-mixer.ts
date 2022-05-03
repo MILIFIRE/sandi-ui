@@ -23,25 +23,27 @@ const useAnimationMixer = () => {
     }
     if (parentId) {
         core.addEventListenerById(parentId, EventType.AnimationsReady, (event) => {
-            // 模型加载完成
+            // model loaded
             const { object3d, animations } = event.payload
-            // 动画混淆器
-
             instance = new AnimationMixer(object3d)
             renderBcak = (delta: number) => {
                 instance.update(delta)
             }
+            core.setNode(id, instance)
             if (renderId) {
                 core.dispatchEventById(renderId, { type: EventType.Render, render: renderBcak })
             }
-            // 分发 actions 的 动作
+            // dispatch actions 
             core.dispatchEventById(id, { type: EventType.AnimationMixerLoaded, mixer: instance, animations })
         })
     }
-
+    const remove = () => {
+        core.delNode(id)
+    }
     return {
         getInstance,
-        removeRender
+        removeRender,
+        remove
     }
 }
 export default useAnimationMixer

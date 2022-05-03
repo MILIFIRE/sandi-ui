@@ -1,24 +1,26 @@
 <script  lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onUnmounted } from "vue";
 import useFBXLoader from "./fbx-loader";
 
 export default defineComponent({
-  props: {
-    url: {
-      type: String,
-      required: true,
+    props: {
+        url: {
+            type: String,
+            required: true,
+        },
     },
-  },
-  setup(props) {
-    const { instance } = useFBXLoader(props.url);
-
-    return { instance };
-  },
+    setup(props) {
+        const { instance, remove } = useFBXLoader(props.url);
+        onUnmounted(() => {
+            remove()
+        })
+        return { instance };
+    },
 });
 </script>
 
 <template>
-  <slot></slot>
+    <slot></slot>
 </template>
 
 <style scoped>

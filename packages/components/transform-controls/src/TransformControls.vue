@@ -1,25 +1,28 @@
 <script  lang="ts">
-import type { PropType } from "vue";
+import { onUnmounted, type PropType } from "vue";
 import { onMounted, defineComponent } from "vue";
 import useTransformControls from "./transform-controls";
 import { Camera } from "three";
 export default defineComponent({
-  props: {
-    camera: {
-      type: Camera,
-      required: false,
+    props: {
+        camera: {
+            type: Camera,
+            required: false,
+        },
+        domElement: {
+            type: Object as PropType<HTMLCanvasElement>,
+            required: false,
+        },
     },
-    domElement: {
-      type: Object as PropType<HTMLCanvasElement>,
-      required: false,
+    setup(props) {
+        onMounted(() => {
+            const { instance, remove } = useTransformControls(props.camera, props.domElement);
+            onUnmounted(() => {
+                if (remove) remove()
+            })
+            return { instance };
+        });
     },
-  },
-  setup(props) {
-    onMounted(() => {
-      const { instance } = useTransformControls(props.camera, props.domElement);
-      return { instance };
-    });
-  },
 });
 </script>
 

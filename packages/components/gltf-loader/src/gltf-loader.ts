@@ -1,8 +1,9 @@
 import { getCore } from "@sandi-ui/utils"
 
-import type { Object3D } from "three"
+import type { Group, Object3D } from "three"
 import { GLTFLoader } from "@sandi-ui/modules"
 import { EventType } from '@sandi-ui/enum'
+import { deepDispose, disposeMesh } from '@sandi-ui/utils'
 
 const useGLTFloader = (url: string) => {
     const core = getCore()
@@ -10,6 +11,7 @@ const useGLTFloader = (url: string) => {
     const instance = new GLTFLoader()
     const { parentId, id } = core.addNode({ isGLTF: true, isload: false });
     const parentNode = core.getParent<Object3D>()
+    let gltfObjects;
     instance.load(url, (gltf) => {
         const { scene } = gltf
         if (parentNode) {
@@ -19,11 +21,21 @@ const useGLTFloader = (url: string) => {
             core.dispatchEventById(id, { type: EventType.AnimationsReady, payload: { object3d: gltf.scene, animations: gltf.animations } })
             // 重新设置节点
             core.setNode(id, { isGLTF: true, gltf, isload: true })
+            gltfObjects = gltf;
         }
     })
-
+    const remove = () => {
+        core.delNode(id)
+        if (gltfObjects) {
+            // gltfObjects.scene.children.forEach(item => deepDispose(item))
+            gltfObjects.scenes.forEach(scene => {
+                scene.children.forEach(item => deepDispose(item))
+            })
+            gltfObjects.cameras.forEach(camera => camera.dispose())
+        }
+    }
     return {
-        instance,
+        instance, remove
     }
 }
 export default useGLTFloader

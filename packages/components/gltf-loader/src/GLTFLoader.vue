@@ -1,18 +1,20 @@
 <script  lang="ts">
 import { defineComponent, toRefs, onBeforeMount, onMounted, onUnmounted, ref, provide } from 'vue';
-import  useGLTFLoader from './gltf-loader'
+import useGLTFLoader from './gltf-loader'
 
 export default defineComponent({
     props: {
         url: {
             type: String,
-            required:true
+            required: true
 
         }
     },
-     setup(props) {
-        const {instance} = useGLTFLoader(props.url)
-
+    setup(props) {
+        const { instance, remove } = useGLTFLoader(props.url)
+        onUnmounted(() => {
+            remove()
+        })
         return { instance }
     }
 })

@@ -29,9 +29,9 @@ export default defineComponent({
         meshName: String,
     },
     setup(props) {
-        const { instance } = useBasicMaterial(props);
+        const { instance, remove } = useBasicMaterial(props);
         onUnmounted(() => {
-            instance.dispose();
+            remove()
         });
         watch(props, (val) => {
             const { color, map, alphaMap, reflectivity, refractionRatio } = val;
