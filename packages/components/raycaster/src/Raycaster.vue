@@ -12,7 +12,6 @@ export default defineComponent({
         near: { type: Number, require: false, default: 0 },
         far: { type: Number, require: false, default: Infinity },
         disabled: { type: Boolean, require: false, default: false },
-        inspectionScope: { type: String, require: false, default: "scene" },
         raycasterCallback: {
             type: Function as PropType<(target: Object3D<Event>,
                 ary: Object3D<Event>[],
@@ -20,16 +19,19 @@ export default defineComponent({
             require: false,
             default: () => { }
         },
-        mode: {
-            type: String,
-            default: 'normal'
+        object: {
+            type: Object3D,
+            require: false
         },
+        checkObjectArray: {
+            type: Array as PropType<Object3D[]>,
+            require: false
+        }
 
     },
     setup(props) {
         const { origin, direction, near, far } = props
-        const { changeMode, setEnabled, setInspectionScope, updateBack, instance, remove } = useRaycaster(origin, direction, near, far);
-        changeMode(props.mode)
+        const { setEnabled, setInspectionScope, updateBack, instance, remove } = useRaycaster(origin, direction, near, far);
         updateBack(props.raycasterCallback);
         watch(() => props.origin, (val) => {
             instance.ray.origin.copy(val);
@@ -46,14 +48,12 @@ export default defineComponent({
         watch(() => props.disabled, (val) => {
             setEnabled(val);
         })
-        watch(() => props.inspectionScope, (val) => {
-            setInspectionScope(val);
-        })
+
         watch(() => props.raycasterCallback, (val) => {
             updateBack(val);
         })
-        watch(() => props.mode, (val) => {
-            changeMode(val);
+        watch(() => props.object, (val) => {
+            changeObject(val);
         })
         onUnmounted(() => {
             remove()

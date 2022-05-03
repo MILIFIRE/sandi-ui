@@ -13,7 +13,7 @@ import {
   SphereGeometry,
   PlaneGeometry,
 } from "three";
-import { EventType, SDMouseEvent } from "@sandi-ui/enum";
+import { EventType, SDEvent } from "@sandi-ui/enum";
 const useMesh = (
   geometry: BufferGeometry | undefined,
   material: Material | undefined,
@@ -90,18 +90,18 @@ const useMesh = (
   };
 
   const setClick = (fn) => {
-    core.setEvenet(SDMouseEvent.Click, id, fn);
+    core.setEvenet(SDEvent.Click, id, fn);
   };
   const setPointerOver = (fn) => {
-    core.setEvenet(SDMouseEvent.PointerOver, id, fn);
+    core.setEvenet(SDEvent.PointerOver, id, fn);
   };
   const setPointerOut = (fn) => {
-    core.setEvenet(SDMouseEvent.PointerOut, id, fn);
+    core.setEvenet(SDEvent.PointerOut, id, fn);
   };
   const remove = () => {
-    core.delEvenet(SDMouseEvent.Click, id);
-    core.delEvenet(SDMouseEvent.PointerOver, id);
-    core.delEvenet(SDMouseEvent.PointerOut, id);
+    core.delEvenet(SDEvent.Click, id);
+    core.delEvenet(SDEvent.PointerOver, id);
+    core.delEvenet(SDEvent.PointerOut, id);
     core.delNode(id);
     disposeMesh(instance);
   };

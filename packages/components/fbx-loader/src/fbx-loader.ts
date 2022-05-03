@@ -1,6 +1,6 @@
 import { getCore } from "@sandi-ui/utils";
 
-import type { Material, Object3D, SkinnedMesh, Mesh, Bone } from "three";
+import type { Material, Object3D, SkinnedMesh, Mesh, Bone, Group } from "three";
 import { FBXLoader } from "@sandi-ui/modules";
 import { EventType } from "@sandi-ui/enum";
 import { deepDispose } from "@sandi-ui/utils";
@@ -78,6 +78,14 @@ const useFBXLoader = (url: string) => {
       object = object3d;
       // add fbx Models
       parentNode.node.add(object3d);
+      if (parentNode.node.isObject3D) {
+        object3d.traverse((object) => {
+          object.userData = {
+            primitive: true,
+            parentId: parentNode.id,
+          };
+        });
+      }
       // async set animation
       core.dispatchEventById(id, {
         type: EventType.AnimationsReady,

@@ -12,6 +12,7 @@ import {
 } from "three";
 import type { Event } from "three";
 import { UID, RENDER_ID, SCENE_ID } from "@sandi-ui/constants";
+import type { SDEvent } from "@sandi-ui/enum";
 type ThreeType =
   | Scene
   | Mesh
@@ -71,13 +72,13 @@ export default class v3dCore extends EventDispatcher {
     this.map.set(id, { id, parent: parentId, children: undefined, node });
     return { parentId, id };
   }
-  setEvenet(type: string, key: number, fn: () => {}) {
+  setEvenet(type: SDEvent, key: number, fn: () => {}) {
     this.event.set(`${type}-${key}`, fn);
   }
-  delEvenet(type: string, key: number) {
+  delEvenet(type: SDEvent, key: number) {
     this.event.delete(`${type}-${key}`);
   }
-  getEvenet(type: string, key: number) {
+  getEvenet(type: SDEvent, key: number) {
     return this.event.get(`${type}-${key}`);
   }
   setNode(id: number, newNode: ThreeType) {

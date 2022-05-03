@@ -1,7 +1,7 @@
 import { getCore } from "@sandi-ui/utils";
 
 import { Group } from "three";
-import { EventType, SDMouseEvent } from "@sandi-ui/enum";
+import { EventType, SDEvent } from "@sandi-ui/enum";
 const useGroup = (click: (() => void) | undefined) => {
   const core = getCore();
 
@@ -25,18 +25,18 @@ const useGroup = (click: (() => void) | undefined) => {
     return instance;
   };
   const setClick = (fn) => {
-    core.setEvenet(SDMouseEvent.Click, id, fn);
+    core.setEvenet(SDEvent.Click, id, fn);
   };
   const setPointerOver = (fn) => {
-    core.setEvenet(SDMouseEvent.PointerOver, id, fn);
+    core.setEvenet(SDEvent.PointerOver, id, fn);
   };
   const setPointerOut = (fn) => {
-    core.setEvenet(SDMouseEvent.PointerOut, id, fn);
+    core.setEvenet(SDEvent.PointerOut, id, fn);
   };
   const remove = () => {
-    core.delEvenet(SDMouseEvent.Click, id);
-    core.delEvenet(SDMouseEvent.PointerOver, id);
-    core.delEvenet(SDMouseEvent.PointerOut, id);
+    core.delEvenet(SDEvent.Click, id);
+    core.delEvenet(SDEvent.PointerOver, id);
+    core.delEvenet(SDEvent.PointerOut, id);
     core.delNode(id);
   };
   return { getInstance, setClick, setPointerOver, setPointerOut, remove };

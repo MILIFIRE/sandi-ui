@@ -13,8 +13,15 @@ export enum EventType {
   RenderSizeChang = "RenderSizeChang",
 }
 
-export enum SDMouseEvent {
-  Click = "Click",
-  PointerOver = "PointerOver",
-  PointerOut = "PointerOut",
+export enum SDEvent {
+  Click = "click",
+  PointerOver = "pointerover",
+  PointerOut = "pointerout",
+  PointerMove = "pointermove",
+  PointerDown = "pointerdown",
+  PointerUp = "pointerup",
+  Wheel = "wheel",
+  DoubleClick = "dblclick",
+  PointerMissed = "PointerMissed",
+  None = "none",
 }
