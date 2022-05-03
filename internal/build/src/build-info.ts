@@ -1,5 +1,5 @@
 import path from 'path'
-import { sdOutput } from './propject-path'
+import { sdOutput } from './project-path'
 const PKG_NAME = 'sandi-ui';
 import type { ModuleFormat } from 'rollup'
 

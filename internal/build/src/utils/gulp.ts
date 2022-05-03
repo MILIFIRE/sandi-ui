@@ -1,4 +1,4 @@
-import { buildRoot } from '../propject-path'
+import { buildRoot } from '../project-path'
 import { run } from './process'
 
 import type { TaskFunction } from 'gulp'

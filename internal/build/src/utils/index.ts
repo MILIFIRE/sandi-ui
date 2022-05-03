@@ -1,6 +1,6 @@
 import type { ProjectManifest } from '@pnpm/types'
 import type { OutputOptions, RollupBuild } from 'rollup'
-import {sdPackage} from '../propject-path'
+import { sdPackage } from '../project-path'
 export * from './process'
 export * from './gulp'
 export * from './pkg'
@@ -40,9 +40,9 @@ export function writeBundles(bundle: RollupBuild, options: OutputOptions[]) {
     return Promise.all(options.map((option) => bundle.write(option)))
 }
 
-export const excludeFiles = (files: string[],prev:string='') => {
+export const excludeFiles = (files: string[], prev: string = '') => {
     const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
     return files.filter(
-        (path) => !excludes.some((exclude) => path.includes(exclude,prev.length))
+        (path) => !excludes.some((exclude) => path.includes(exclude, prev.length))
     )
 }
