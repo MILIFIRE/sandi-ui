@@ -1,6 +1,6 @@
 # sand-ui
 
-[中文](https://raw.githubusercontent.com/MILIFIRE/sandi-ui/beta/README.md)｜[English](https://raw.githubusercontent.com/MILIFIRE/sandi-ui/beta/README_EN.md)
+[中文](https://github.com/MILIFIRE/sandi-ui/blob/beta/README.md)｜[English](https://github.com/MILIFIRE/sandi-ui/blob/beta/README_EN.md)
 
 ## Introduction
 
