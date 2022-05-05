@@ -2,20 +2,20 @@
 
 [中文](https://raw.githubusercontent.com/MILIFIRE/sandi-ui/beta/README.md)｜[English](https://raw.githubusercontent.com/MILIFIRE/sandi-ui/beta/README_EN.md)
 
-## 简介
+## Introduction
 
-基于 three 编写的 带有事件系统的 vue3 组件库，用组件方式构建你的交互的 3D 世界
+Based on the vue3 component library with event system written by three, build your interactive 3D world with components
 
-## 功能
+## Features
 
-### 事件系统
+### event system
 
 ```html
 <SDGroup :onClick="() => { v1 += 0.5 }"></SDGroup>
 ```
 
-你可以使用 在 Mesh 和 SDGroup 等物体组件上使用 :onclick 绑定点击事件
-目前支持事件
+You can bind events on object components such as Mesh and SDGroup
+Current Supported events
 onClick,
 onPointerOver,
 onPointerOut,
@@ -32,7 +32,7 @@ onKeyup,
 onKeypress,
 onContextmenu
 
-### 接触检测
+### raycaster
 
 ```html
 <SDRaycaster
@@ -45,35 +45,34 @@ onContextmenu
 />
 ```
 
-使用 SDRaycaster 组件检测是否有物体接触，你可以做出很有意思的交互 demo
+Using the SDRaycaster component to detect contact, you can make interesting interactive demos
 
-### 高级组件
+### Advanced component
 
-SDLight、 SDMaterial、 SDMesh、SDGeometry 等组件可以支 threejs 实例注入
+SDLight, SDMaterial, SDMesh, SDGeometry and other components can support threejS instance injection
 
-### 动画系统
+### Animation system
 
-SDAnimationAction SDAnimationMixer 组件 控制 FBX GLTF 文件的动画播放
+The SDAnimationMixer component controls the animation playback of FBX GLTF files
 
-### 控制器
+### Controllers
 
-SDOrbitControls、SDTransformControls、SDPointerLockControls 等 快速提供 360 度观察，移动缩放控制，第一人称控制
+SDOrbitControls, SDTransformControls, SDPointerLockControls and more quickly provide 360 degree view, zoom control, first person control
 
-### 资源自动回收
+### Automatic Resource reclamation
 
-vue 生命周期，当组建卸载时，会自动回收资源
+Vue life cycle, when the build is uninstalled, resources are automatically reclaimed
 
-## 文档地址
+## Documentation
 
 https://milifire.github.io/sandi-ui/
 
-国内服务器:http://152.136.110.22/ (域名正在备案)
+china:http://152.136.110.22/ (The domain name is being filed)
+Gradually improving, there are some examples for your reference
 
-逐渐完善中， 里面有的例子，供你参考
+## fast start
 
-## 快速开始
-
-### 安装
+### install
 
 pnpm
 
@@ -93,7 +92,7 @@ npm
 npm install sandi-ui
 ```
 
-### 使用
+### use
 
 ```js
 import { createApp } from "vue";
@@ -104,7 +103,7 @@ app.use(sandiUI);
 app.mount("#app");
 ```
 
-### 例子
+### example
 
 ```html
 <template>
