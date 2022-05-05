@@ -18,8 +18,7 @@ const useMesh = (
   geometry: BufferGeometry | undefined,
   material: Material | undefined,
   geometryType: string | undefined,
-  geometryParam: any = {},
-  click: (() => void) | undefined
+  geometryParam: any = {}
 ) => {
   const core = getCore();
   let updateCallback;
@@ -88,31 +87,16 @@ const useMesh = (
   const update = (fn: (instance: Mesh<BufferGeometry, Material>) => void) => {
     updateCallback = fn;
   };
-
-  const setClick = (fn) => {
-    core.setEvenet(SDEvent.Click, id, fn);
-  };
-  const setPointerOver = (fn) => {
-    core.setEvenet(SDEvent.PointerOver, id, fn);
-  };
-  const setPointerOut = (fn) => {
-    core.setEvenet(SDEvent.PointerOut, id, fn);
-  };
   const remove = () => {
-    core.delEvenet(SDEvent.Click, id);
-    core.delEvenet(SDEvent.PointerOver, id);
-    core.delEvenet(SDEvent.PointerOut, id);
     core.delNode(id);
     disposeMesh(instance);
   };
   return {
+    id,
     getInstance,
     update,
     changGeometry,
     ChangMaterial,
-    setClick,
-    setPointerOver,
-    setPointerOut,
     remove,
   };
 };

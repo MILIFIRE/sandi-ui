@@ -12,16 +12,21 @@ export enum EventType {
   AddObject3d = "AddObject3d",
   RenderSizeChang = "RenderSizeChang",
 }
-
+/** SDEvent is sandi-ui Event*/
 export enum SDEvent {
-  Click = "click",
-  PointerOver = "pointerover",
-  PointerOut = "pointerout",
-  PointerMove = "pointermove",
-  PointerDown = "pointerdown",
-  PointerUp = "pointerup",
-  Wheel = "wheel",
-  DoubleClick = "dblclick",
-  PointerMissed = "PointerMissed",
+  onClick = "click",
+  onPointerOver = "pointerover",
+  onPointerOut = "pointerout",
+  onPointerMove = "pointermove",
+  onPointerDown = "pointerdown",
+  onPointerUp = "pointerup",
+  onWheel = "wheel",
+  onDblClick = "dblclick",
+  onPointerMissed = "pointermissed",
+  onKeyMissed = "keymissed",
   None = "none",
+  onKeyDown = "keydown",
+  onKeyup = "keyup",
+  onKeypress = "keypress",
+  onContextmenu = "contextmenu",
 }

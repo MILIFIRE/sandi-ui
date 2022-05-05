@@ -1,5 +1,108 @@
+import type { SDEvent } from "@sandi-ui/enum";
 import type { Object3D } from "three";
-import { watch, type WatchStopHandle } from "vue";
+import { watch, type PropType, type WatchStopHandle } from "vue";
+import { getCore } from "@sandi-ui/utils";
+const eventList = [
+  "onClick",
+  "onPointerMove",
+  "onPointerDown",
+  "onPointerUp",
+  "onWheel",
+  "onDblClick",
+  "onKeyDown",
+  "onKeyup",
+  "onKeypress",
+  "onContextmenu",
+  "onPointerOut",
+  "onPointerOver",
+  "onPointerMissed",
+  "onKeyMissed",
+];
+
+export const eventProps = {
+  onClick: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onPointerMove: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onPointerDown: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onPointerUp: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onWheel: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onDblClick: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onKeyDown: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onKeyup: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onKeypress: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onContextmenu: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onPointerOut: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onPointerOver: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onPointerMissed: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  onKeyMissed: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+};
+
+export const watchEvent = (props, id) => {
+  const core = getCore();
+  eventList.forEach((key) => {
+    const event = key.replace("on", "").toLowerCase() as SDEvent;
+    if (props[key]) {
+      core.setEvenet(event, id, props[key]);
+    }
+    watch(
+      () => props[key],
+      (val, oldVal) => {
+        if (typeof val === "function") {
+          core.setEvenet(event, id, val);
+        } else {
+          core.delEvenet(event, id);
+        }
+      }
+    );
+  });
+  return () => {
+    eventList.forEach((key) => {
+      const event = key.replace("on", "").toLowerCase() as SDEvent;
+      core.delEvenet(event, id);
+    });
+  };
+};
 
 export const object3dProps = {
   translateX: {

@@ -14,13 +14,15 @@ export default defineComponent({
     setup(props) {
         const rendererDom = ref<HTMLDivElement>();
         const webglRender = useRender(props.options);
-        const { instance, setSize } = webglRender;
+        const { instance, setSize, setEvent } = webglRender;
+        let removeEvent
         setSize(props.width, props.height);
         instance.setClearColor(props.backgroundColor, props.backgroundAlpha);
         instance.setPixelRatio(props.pixelRatio);
         if (props.renderCallback) {
             instance.setCallBack(props.renderCallback);
         }
+
         watch(
             () => props.renderCallback,
             (fn, oldFN) => {
@@ -61,15 +63,31 @@ export default defineComponent({
         );
 
         onMounted(() => {
-            if (props.renderCallback) instance.delCallBack(props.renderCallback)
+            if (props.renderCallback) instance.setCallBack(props.renderCallback)
             rendererDom.value?.appendChild(instance.domElement);
+            if (props.enableEvent) {
+                setEvent(props.enableEvent)
+            }
             instance.renderScene();
         });
+
         onUnmounted(() => {
+            if (props.renderCallback) instance.delCallBack(props.renderCallback)
             instance.dispose();
+            if (removeEvent && typeof removeEvent === "function") {
+                removeEvent()
+            }
         });
+
+        watch(() => props.enableEvent, (val) => {
+            setEvent(val)
+        })
+
         const { width, height } = toRefs(props);
-        return { rendererDom, width, height };
+        const a = () => {
+            console.log('a')
+        }
+        return { rendererDom, width, height, a };
     },
 });
 </script>

@@ -1,11 +1,12 @@
 <script   lang="ts">
 import { Material, BufferGeometry, Mesh } from "three";
 import useMesh from "./mesh";
-import { object3dProps, propsWatch } from "../../object3d/props";
+import { object3dProps, propsWatch, watchEvent, eventProps } from "../../object3d/props";
 import { defineComponent, onUnmounted, watch, type PropType } from "vue";
 export default defineComponent({
     props: {
         ...object3dProps,
+        ...eventProps,
         geometry: {
             type: BufferGeometry,
             required: false,
@@ -21,27 +22,14 @@ export default defineComponent({
         geometryParam: {
             type: Object,
             required: false,
-        },
-        click: {
-            type: Function as PropType<() => void>,
-            required: false,
-        },
-        pointerOver: {
-            type: Function as PropType<() => void>,
-            required: false,
-        },
-        pointerOut: {
-            type: Function as PropType<() => void>,
-            required: false,
         }
     },
     setup(props) {
-        const { getInstance, update, changGeometry, ChangMaterial, setClick, setPointerOver, setPointerOut, remove } = useMesh(
+        const { getInstance, update, changGeometry, ChangMaterial, remove, id } = useMesh(
             props.geometry,
             props.material,
             props.geometryType,
             props.geometryParam,
-            props.click
         );
         let watchStopSet = propsWatch(props, getInstance());
         const updateWatch = (instance: Mesh<BufferGeometry, Material>) => {
@@ -49,7 +37,7 @@ export default defineComponent({
             watchStopSet = propsWatch(props, instance);
 
         };
-        setClick(props.click)
+        let removeEvent = watchEvent(props, id)
 
         watch(() => props.geometry, (val) => {
             if (val) changGeometry(val);
@@ -57,23 +45,9 @@ export default defineComponent({
         watch(() => props.material, (val) => {
             if (val) ChangMaterial(val);
         })
-        watch(() => props.click, (val) => {
-            if (typeof val == 'function') {
-                setClick(val)
-            }
-        })
-        watch(() => props.pointerOver, (val) => {
-            if (typeof val == 'function') {
-                setPointerOver(val)
-            }
-        })
-        watch(() => props.pointerOut, (val) => {
-            if (typeof val == 'function') {
-                setPointerOut(val)
-            }
-        })
+
         update(updateWatch);
-        onUnmounted(() => { remove() });
+        onUnmounted(() => { remove(); removeEvent() });
         return { getInstance };
     },
 });

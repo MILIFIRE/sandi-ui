@@ -24,22 +24,11 @@ const useGroup = (click: (() => void) | undefined) => {
   const getInstance = () => {
     return instance;
   };
-  const setClick = (fn) => {
-    core.setEvenet(SDEvent.Click, id, fn);
-  };
-  const setPointerOver = (fn) => {
-    core.setEvenet(SDEvent.PointerOver, id, fn);
-  };
-  const setPointerOut = (fn) => {
-    core.setEvenet(SDEvent.PointerOut, id, fn);
-  };
+
   const remove = () => {
-    core.delEvenet(SDEvent.Click, id);
-    core.delEvenet(SDEvent.PointerOver, id);
-    core.delEvenet(SDEvent.PointerOut, id);
     core.delNode(id);
   };
-  return { getInstance, setClick, setPointerOver, setPointerOut, remove };
+  return { getInstance, id, remove };
 };
 
 export default useGroup;

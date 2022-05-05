@@ -8,7 +8,8 @@ import useRaycaster from "./raycaster";
 export default defineComponent({
     props: {
         origin: { type: Vector3, require: false, default: new Vector3() },
-        direction: { type: Vector3, require: false, default: new Vector3() },
+        offset: { type: Vector3, require: false, default: new Vector3() },
+        direction: { type: Vector3, require: false, default: new Vector3(0, 1, 0) },
         near: { type: Number, require: false, default: 0 },
         far: { type: Number, require: false, default: Infinity },
         disabled: { type: Boolean, require: false, default: false },
@@ -19,6 +20,10 @@ export default defineComponent({
             require: false,
             default: () => { }
         },
+        lockDirection: {
+            type: Boolean, require: false, default: true
+        },
+
         object: {
             type: Object3D,
             require: false
@@ -26,13 +31,16 @@ export default defineComponent({
         checkObjectArray: {
             type: Array as PropType<Object3D[]>,
             require: false
-        }
-
+        },
+        helper: { type: Boolean, require: false, default: false }
     },
     setup(props) {
         const { origin, direction, near, far } = props
-        const { setEnabled, setInspectionScope, updateBack, instance, remove } = useRaycaster(origin, direction, near, far);
+        const { setEnabled, setOffset, updateBack, instance, remove, setHelper, setLockDirection } = useRaycaster(origin, direction, near, far);
         updateBack(props.raycasterCallback);
+        setHelper(props.helper);
+        setOffset(props.offset);
+        setLockDirection(props.lockDirection)
         watch(() => props.origin, (val) => {
             instance.ray.origin.copy(val);
         })
@@ -48,12 +56,17 @@ export default defineComponent({
         watch(() => props.disabled, (val) => {
             setEnabled(val);
         })
-
         watch(() => props.raycasterCallback, (val) => {
             updateBack(val);
         })
-        watch(() => props.object, (val) => {
-            changeObject(val);
+        watch(() => props.helper, (val) => {
+            setHelper(val);
+        })
+        watch(() => props.offset, (val) => {
+            setOffset(val);
+        })
+        watch(() => props.lockDirection, (val) => {
+            setLockDirection(val)
         })
         onUnmounted(() => {
             remove()

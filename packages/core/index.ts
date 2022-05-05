@@ -72,14 +72,24 @@ export default class v3dCore extends EventDispatcher {
     this.map.set(id, { id, parent: parentId, children: undefined, node });
     return { parentId, id };
   }
-  setEvenet(type: SDEvent, key: number, fn: () => {}) {
-    this.event.set(`${type}-${key}`, fn);
+  setEvenet(type: SDEvent, id: number, fn: () => {}) {
+    this.event.set(`${type}-${id}`, fn);
   }
-  delEvenet(type: SDEvent, key: number) {
-    this.event.delete(`${type}-${key}`);
+  delEvenet(type: SDEvent, id: number) {
+    this.event.delete(`${type}-${id}`);
   }
-  getEvenet(type: SDEvent, key: number) {
-    return this.event.get(`${type}-${key}`);
+  getEvenet(type: SDEvent, id: number) {
+    return this.event.get(`${type}-${id}`);
+  }
+  getEventWithType(type: SDEvent) {
+    let ary: Function[] = [];
+    for (let eventItem of this.event.entries()) {
+      const [key, val] = eventItem;
+      if (key.split("-")[0] === type) {
+        ary.push(val);
+      }
+    }
+    return ary;
   }
   setNode(id: number, newNode: ThreeType) {
     const oldNode = this.map.get(id) as v3dNode<ThreeType>;
@@ -125,6 +135,10 @@ export default class v3dCore extends EventDispatcher {
   }
   getNodeWithObject<T = any>(object: Object3D): v3dNode<T> {
     return this.objectsMap.get(object) as any as v3dNode<T>;
+  }
+  // may be many scene
+  getAllObjects(): Object3D[] {
+    return Array.from(this.objectsMap.keys());
   }
   getChildrens(parentId: number): v3dNode<ThreeType>[] {
     const parentNode = this.map.get(parentId);
