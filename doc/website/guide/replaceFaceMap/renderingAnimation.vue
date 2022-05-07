@@ -2,7 +2,7 @@
 import { ref } from "vue";
 const rY = ref(0)
 const render = () => {
-    rY.value += 0.015
+    rY.value += 0.005
 }
 </script>
 
@@ -15,7 +15,7 @@ const render = () => {
         <SDOrbitControls />
         <SDScene>
             <SDTransformControls />
-            <SDGroup :positionY="-7" :rotationY="rY">
+            <SDGroup :positionY="-7" :rotation="[0, rY, 0]" name="zhangfei">
                 <SDFBXLoader url="/sandi-ui/fbx/Rumba Dancing.fbx">
                     <SDMeshBasicMaterial meshName="body1">
                         <SDTextureLoader url="/sandi-ui/img/zhangfei.jpg" type="map" />

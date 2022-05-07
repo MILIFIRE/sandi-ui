@@ -2,7 +2,7 @@ import type { SDEvent } from "@sandi-ui/enum";
 import type { Object3D } from "three";
 import { watch, type PropType, type WatchStopHandle } from "vue";
 import { getCore } from "@sandi-ui/utils";
-const eventList = [
+let eventList = [
   "onClick",
   "onPointerMove",
   "onPointerDown",
@@ -18,65 +18,24 @@ const eventList = [
   "onPointerMissed",
   "onKeyMissed",
 ];
+const glEventList = eventList
+  .filter((item) => {
+    const ignroe = ["onKeyMissed", "onPointerMissed"];
+    return !ignroe.includes(item);
+  })
+  .map((item) => {
+    return item.replace("on", "onGL");
+  });
 
-export const eventProps = {
-  onClick: {
+eventList = eventList.concat(glEventList);
+
+export const eventProps = eventList.reduce((add, next) => {
+  add[next] = {
     type: Function as PropType<() => void>,
     required: false,
-  },
-  onPointerMove: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  onPointerDown: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  onPointerUp: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  onWheel: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  onDblClick: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  onKeyDown: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  onKeyup: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  onKeypress: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  onContextmenu: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  onPointerOut: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  onPointerOver: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  onPointerMissed: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  onKeyMissed: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-};
+  };
+  return add;
+}, {});
 
 export const watchEvent = (props, id) => {
   const core = getCore();
@@ -105,10 +64,27 @@ export const watchEvent = (props, id) => {
 };
 
 export const object3dProps = {
+  name: {
+    type: String,
+    require: false,
+  },
+  position: {
+    type: Object as PropType<Array<Number>> | String,
+    require: false,
+  },
+  rotation: {
+    type: Object as PropType<Array<Number>> | String,
+    require: false,
+  },
+  scale: {
+    type: Object as PropType<Array<Number>> | String,
+    require: false,
+  },
   translateX: {
     type: Number,
     require: false,
   },
+
   translateY: {
     type: Number,
     require: false,
@@ -179,6 +155,15 @@ const watchWrap = (map: Set<WatchStopHandle>, unWatch: WatchStopHandle) => {
   map.add(unWatch);
 };
 const isFunction = (prop: any) => typeof prop === "function";
+const formatXYZ = (val: string | number[]): number[] => {
+  if (typeof val === "string") {
+    return val.split(",").map((item) => parseFloat(item));
+  }
+  if (val instanceof Array && val.length >= 0) {
+    return val;
+  }
+  return [0, 0, 0];
+};
 const mapFn = (
   watchSet: Set<WatchStopHandle>,
   props: any,
@@ -202,9 +187,42 @@ const mapFn = (
     );
   }
 };
+const MapXyz = (
+  watchSet: Set<WatchStopHandle>,
+  props: any,
+  instance: Object3D,
+  mapKey: string
+) => {
+  if (instance[mapKey]) {
+    if (props[mapKey]) {
+      const [x, y, z] = formatXYZ(props[mapKey]);
+      instance[mapKey].set(x, y, z);
+    }
+    watchWrap(
+      watchSet,
+      watch(
+        () => props[mapKey],
+        (val: any, oldVal: any) => {
+          const [x, y, z] = formatXYZ(val);
+          instance[mapKey].set(x, y, z);
+        }
+      )
+    );
+  }
+};
+
 export const propsWatch = (props: any, instance: Object3D) => {
   const watchSet = new Set<WatchStopHandle>();
   const mapProps = {
+    position: (props: any, instance: Object3D) => {
+      MapXyz(watchSet, props, instance, "position");
+    },
+    rotation: (props: any, instance: Object3D) => {
+      MapXyz(watchSet, props, instance, "rotation");
+    },
+    scale: (props: any, instance: Object3D) => {
+      MapXyz(watchSet, props, instance, "scale");
+    },
     positionX: (props: any, instance: Object3D) => {
       mapFn(watchSet, props, instance, "positionX", "position", "x");
     },
@@ -250,31 +268,32 @@ export const propsWatch = (props: any, instance: Object3D) => {
   };
 
   for (let propKey in object3dProps) {
-    if (instance[propKey]) {
-      if (props[propKey]) {
-        if (isFunction(instance[propKey])) {
-          instance[propKey](props[propKey]);
-        } else {
-          instance[propKey] = props[propKey];
-        }
-      }
-      watchWrap(
-        watchSet,
-        watch(
-          () => props[propKey],
-          (val: any) => {
-            if (isFunction(instance[propKey])) {
-              instance[propKey](val);
-            } else {
-              instance[propKey] = val;
-            }
-          }
-        )
-      );
+    if ((mapProps as any)[propKey]) {
+      (mapProps as any)[propKey](props, instance);
     } else {
-      if ((mapProps as any)[propKey]) {
-        (mapProps as any)[propKey](props, instance);
+      if (propKey in instance) {
+        if (props[propKey]) {
+          if (isFunction(instance[propKey])) {
+            instance[propKey](props[propKey]);
+          } else {
+            instance[propKey] = props[propKey];
+          }
+        }
+        watchWrap(
+          watchSet,
+          watch(
+            () => props[propKey],
+            (val: any) => {
+              if (isFunction(instance[propKey])) {
+                instance[propKey](val);
+              } else {
+                instance[propKey] = val;
+              }
+            }
+          )
+        );
       } else {
+        console.log("instance:", instance);
         console.log("instance not have props ", propKey);
       }
     }

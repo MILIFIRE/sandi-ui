@@ -1,57 +1,50 @@
 <template>
-    <SDWebglRenderer :width="720" :height="360" :backgroundColor="0x1f63d1">
-        <SDPerspectiveCamera :positionX="0.5" :positionY="0" :positionZ="16.9" />
-        <SDOrbitControls />
+    <SDWebglRenderer :width="720" :height="360" :backgroundColor="0x1f63d1" :renderCallback="render">
+        <SDPerspectiveCamera :positionY="0" :positionZ="3" />
         <SDScene>
-            <!-- <SDTransformControls /> -->
-            <SDGroup :rotationY="v1" :scaleXYZ="1" :onClick="() => {
-                v1 += 0.5
-            }">
-                <SDGroup>
-                    <SDMesh :rotationY="v" :scaleXYZ="1" :onClick="() => {
-                        v += 0.25; return false
-                    }">
-                        <SDRaycaster :lockDirection="true" :helper="true" :direction="new Vector3(-1, 0.5, 0)"
-                            :raycasterCallback="consoleRay" :far="4" :offset="new Vector3(0, 0, 0)" />
-                        <SDBoxGeometry :width="1" />
-                        <SDMeshBasicMaterial>
-                            <SDTextureLoader url="/sandi-ui/img/crate.gif" type="map" />
-                        </SDMeshBasicMaterial>
-                    </SDMesh>
-                    <!-- <SDFBXLoader url="/sandi-ui/fbx/Rumba Dancing.fbx">
-                        <SDMeshBasicMaterial meshName="body1">
-                            <SDTextureLoader url="/sandi-ui/img/zhangfei.jpg" type="map" />
-                        </SDMeshBasicMaterial>
-                        <SDMeshBasicMaterial meshName="face">
-                            <SDTextureLoader url="/sandi-ui/img/face.png" type="map" />
-                        </SDMeshBasicMaterial>
-                        <SDAnimationMixer>
-                            <SDAnimationAction />
-                        </SDAnimationMixer>
-                    </SDFBXLoader> -->
-                </SDGroup>
-            </SDGroup>
+            <SDMesh name="left" :rotation="[0, y1, 0]" :position="[-2, 0, 0]" :scaleXYZ="1">
+                <SDBoxGeometry :width="1" />
+                <SDMeshBasicMaterial>
+                    <SDTextureLoader url="/sandi-ui/img/crate.gif" type="map" />
+                </SDMeshBasicMaterial>
+            </SDMesh>
+            <SDMesh :position="[0, 0, 0]" :rotation="[0, y, 0]" :scaleXYZ="1">
+                <SDRaycaster :lockDirection="true" :helper="{ color: 'red' }" :direction="new Vector3(1, 0, 0)" :far="2"
+                    :offset="new Vector3(0, 0, 0)" :raycasterCallback="testObject" />
+                <SDBoxGeometry :width="1" />
+                <SDMeshBasicMaterial>
+                    <SDTextureLoader url="/sandi-ui/img/crate.gif" type="map" />
+                </SDMeshBasicMaterial>
+            </SDMesh>
+            <SDMesh name="right" :scale="[scale, scale, scale]" :position="[2, 0, 0]" :scaleXYZ="1">
+                <SDBoxGeometry :width="1" />
+                <SDMeshBasicMaterial>
+                    <SDTextureLoader url="/sandi-ui/img/crate.gif" type="map" />
+                </SDMeshBasicMaterial>
+            </SDMesh>
         </SDScene>
     </SDWebglRenderer>
 </template>
 <script setup >
 import { ref } from 'vue'
-import { Vector3 } from 'three'
-const log = (a, b, c) => {
-    console.log(a, b, c)
+import { Vector3 } from "three"
+const y = ref(0)
+const y1 = ref(0)
+const touch = ref(false)
+const scale = ref(1)
+const render = () => {
+    y.value += 0.025
+    touch.value = false
+    scale.value -= 0.0005
 }
-const v = ref(4)
-const v1 = ref(0)
-const s = ref(5)
-const consoleRay = (a, b, c) => {
-    // console.log(a, b, c)
-}
-// setInterval(() => {
-//     v1.value += 0.05
-// }, 100)
-const clicka = () => {
-    console.log('click')
-    v.value += 0.05
-    return false
+
+const testObject = (object) => {
+    if (object.name === "left") {
+        y1.value += 0.09
+    }
+    if (object.name === "right") {
+        scale.value += 0.012
+
+    }
 }
 </script>

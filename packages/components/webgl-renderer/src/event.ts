@@ -18,6 +18,17 @@ const useEvent = (renderNode: WebGLRendererWrap) => {
   let domElement = renderNode.domElement;
   const instance = new Raycaster();
   const mouse = new Vector2();
+  const eventList = [
+    SDEvent.onClick,
+    SDEvent.onPointerMove,
+    SDEvent.onPointerOut,
+    SDEvent.onPointerOver,
+    SDEvent.onPointerDown,
+    SDEvent.onPointerUp,
+    SDEvent.onWheel,
+    SDEvent.onDblClick,
+    SDEvent.onContextmenu,
+  ];
   let inCavans = false;
   interface SDEventOrign {
     target: Mesh<BufferGeometry, Material | Material[]> | Group | null;
@@ -107,7 +118,6 @@ const useEvent = (renderNode: WebGLRendererWrap) => {
   };
 
   const updateMouse = (event: MouseEvent | PointerEvent) => {
-    event.preventDefault();
     const size = new Vector2();
     renderNode.getSize(size);
     mouse.x = (event.offsetX / size.x) * 2 - 1;
@@ -185,20 +195,15 @@ const useEvent = (renderNode: WebGLRendererWrap) => {
       }
       prevId = -1;
     }
+    // global event
+    const callBackFnAry = core.getEventWithType("gl" + event.type);
+    callBackFnAry.forEach((callBackFn) => {
+      if (typeof callBackFn === "function") callBackFn(event, SD_Event);
+    });
   };
 
   renderNode.setCallBack(scan);
-  const eventList = [
-    SDEvent.onClick,
-    SDEvent.onPointerMove,
-    SDEvent.onPointerOut,
-    SDEvent.onPointerOver,
-    SDEvent.onPointerDown,
-    SDEvent.onPointerUp,
-    SDEvent.onWheel,
-    SDEvent.onDblClick,
-    SDEvent.onContextmenu,
-  ];
+
   const Keyevent = [SDEvent.onKeyDown, SDEvent.onKeyup, SDEvent.onKeypress];
   Keyevent.forEach((event) => {
     document.addEventListener(event, handleEvent);

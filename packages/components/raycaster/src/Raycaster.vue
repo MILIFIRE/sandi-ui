@@ -1,10 +1,15 @@
 <template></template>
 <script lang="ts">
-import { Object3D, Vector3 } from "three";
-import type { Intersection, Event } from "three";
+import { ArrowHelper, Object3D, Vector3 } from "three";
+import type { Intersection, Event, ColorRepresentation } from "three";
 import { defineComponent, onUnmounted, watch } from "vue";
 import type { PropType } from "vue";
 import useRaycaster from "./raycaster";
+interface helper {
+    color?: ColorRepresentation,
+    headLength?: number,
+    headWidth?: number,
+}
 export default defineComponent({
     props: {
         origin: { type: Vector3, require: false, default: new Vector3() },
@@ -32,7 +37,7 @@ export default defineComponent({
             type: Array as PropType<Object3D[]>,
             require: false
         },
-        helper: { type: Boolean, require: false, default: false }
+        helper: { type: Object as PropType<helper>, require: false, default: null }
     },
     setup(props) {
         const { origin, direction, near, far } = props

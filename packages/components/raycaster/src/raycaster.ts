@@ -1,10 +1,6 @@
 import {
   ArrowHelper,
-  Camera,
-  CylinderGeometry,
   Group,
-  Matrix4,
-  MeshBasicMaterial,
   Object3D,
   Quaternion,
   Raycaster,
@@ -15,8 +11,7 @@ import type { Intersection, Event } from "three";
 import { filterV3dNode, getCore } from "@sandi-ui/utils";
 import { inject } from "vue";
 import { RENDER_ID, SCENE_ID } from "@sandi-ui/constants";
-import { EventType, SDEvent, V3dNodeCheck } from "@sandi-ui/enum";
-import type { WebGLRendererWrap } from "@sandi-ui/modules";
+import { EventType, V3dNodeCheck } from "@sandi-ui/enum";
 const useRaycaster = (
   origin: Vector3,
   direction: Vector3,
@@ -28,61 +23,71 @@ const useRaycaster = (
   let recursive = false;
   let lockDirection = true;
   let offset = new Vector3();
-  let renderNode;
   let raycasterCallback;
-  let inspectionScope = "scene";
-  let windowSize: { width: number; height: number };
-  const raycaster = new Raycaster(origin, direction, near, far);
+  const raycaster = new Raycaster(
+    origin,
+    new Vector3().copy(direction),
+    near,
+    far
+  );
   const { parentId, id } = core.addNode(raycaster);
   const renderId = inject<number>(RENDER_ID);
   const sceneId = inject<number>(SCENE_ID);
-  const mouse = new Vector2();
   const object: Object3D | null = null;
   let helperEnable = false;
   let arrowHelper: ArrowHelper | null;
-  const genHelper = (raycaster: Raycaster) => {
+  const genHelper = (raycaster: Raycaster, options) => {
+    options = { color: "red", headLength: 1, headWidth: 1, ...options };
+    const { color, headLength, headWidth } = options;
     arrowHelper = new ArrowHelper(
       raycaster.ray.direction,
       raycaster.ray.origin,
       raycaster.far === Infinity ? 20000 : raycaster.far,
-      0xff0000
+      color,
+      headLength,
+      headWidth
     );
     const scene = core.getNode(sceneId as number);
     scene.node.add(arrowHelper);
   };
+
   const checkBack = () => {
     if (isEnable) {
       // Local coordinates transfrom world coordinates
       const world = new Vector3();
+      let newDirection = new Vector3();
       let parentNode;
       if (parentId) {
         parentNode = core.getNode(parentId);
         if (parentNode && parentNode.node && parentNode.node.isObject3D) {
           parentNode.node.getWorldPosition(world);
         }
+      } else {
+        world.copy(origin);
       }
-      raycaster.ray.origin.copy(world);
+      if (lockDirection) {
+        const quaternion = new Quaternion();
+        parentNode.node.getWorldQuaternion(quaternion);
+        const vec3 = new Vector3();
+        vec3.copy(direction);
+        vec3.applyQuaternion(quaternion);
+        newDirection.copy(vec3);
+      } else {
+        newDirection.copy(direction);
+      }
+      world.add(offset);
       if (helperEnable) {
-        if (!arrowHelper) {
-          genHelper(raycaster);
-        } else {
-          if (lockDirection) {
-            const quaternion = new Quaternion();
-            parentNode.node.getWorldQuaternion(quaternion);
-            const vec3 = new Vector3();
-            vec3.copy(direction);
-            vec3.applyQuaternion(quaternion);
-            // vec3.applyQuaternion(parentNode.node.quaternion);
-            arrowHelper.setDirection(vec3);
-          } else {
-            arrowHelper.setDirection(direction);
-          }
+        if (arrowHelper) {
+          arrowHelper.setDirection(newDirection);
           arrowHelper.setLength(
             raycaster.far === Infinity ? 20000 : raycaster.far
           );
-          arrowHelper.position.copy(raycaster.ray.origin);
+          arrowHelper.position.copy(world);
         }
       }
+      raycaster.ray.direction.copy(newDirection);
+      raycaster.far = raycaster.far === Infinity ? 20000 : raycaster.far;
+      raycaster.ray.origin.copy(world);
       if (sceneId) {
         const childrens = core.getChildrens(sceneId).map((item) => item.node);
 
@@ -114,7 +119,7 @@ const useRaycaster = (
             raycasterCallback(object, checkAry, intersects);
           }
         } else {
-          raycasterCallback(null, checkAry, intersects);
+          //   raycasterCallback(null, checkAry, intersects);
         }
       }
     }
@@ -149,8 +154,17 @@ const useRaycaster = (
     }
   };
   const setObject = () => {};
-  const setHelper = (val: boolean) => {
-    helperEnable = val;
+  const setHelper = (val) => {
+    if (val === null) {
+      helperEnable = false;
+      if (sceneId) {
+        const scene = core.getNode(sceneId);
+        scene.node.remove(arrowHelper);
+      }
+    } else {
+      helperEnable = true;
+      genHelper(raycaster, val);
+    }
   };
   const setLockDirection = (val: boolean) => {
     lockDirection = val;

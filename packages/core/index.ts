@@ -81,7 +81,7 @@ export default class v3dCore extends EventDispatcher {
   getEvenet(type: SDEvent, id: number) {
     return this.event.get(`${type}-${id}`);
   }
-  getEventWithType(type: SDEvent) {
+  getEventWithType(type: string) {
     let ary: Function[] = [];
     for (let eventItem of this.event.entries()) {
       const [key, val] = eventItem;
