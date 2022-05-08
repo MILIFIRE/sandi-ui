@@ -2,5 +2,4 @@
 
 # webglrender
 
-我们在一张纸上绘画，渲染器相当于一张白纸
-
+WebGL Render 用WebGL渲染出你的场景.

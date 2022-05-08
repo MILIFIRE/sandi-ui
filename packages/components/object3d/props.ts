@@ -69,15 +69,15 @@ export const object3dProps = {
     require: false,
   },
   position: {
-    type: Object as PropType<Array<Number>> | String,
+    type: [Array, String],
     require: false,
   },
   rotation: {
-    type: Object as PropType<Array<Number>> | String,
+    type: [Array, String],
     require: false,
   },
   scale: {
-    type: Object as PropType<Array<Number>> | String,
+    type: [Array, String],
     require: false,
   },
   translateX: {

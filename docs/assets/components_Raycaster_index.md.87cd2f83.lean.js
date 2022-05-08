@@ -1,1 +1,0 @@
-import{_ as t,c as e,o as d,a as r}from"./app.b2cbb95f.js";const _='{"title":"Raycaster","description":"","frontmatter":{},"headers":[],"relativePath":"components/Raycaster/index.md"}',a={},i=r("",2),l=[i];function n(s,g,o,c,h,y){return d(),e("div",null,l)}var p=t(a,[["render",n]]);export{_ as __pageData,p as default};

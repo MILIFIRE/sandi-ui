@@ -61,7 +61,7 @@ SDOrbitControls、SDTransformControls、SDPointerLockControls 等 快速提供 3
 
 ### 资源自动回收
 
-vue 生命周期，当组建卸载时，会自动回收资源
+vue 生命周期，当组件卸载时，会自动回收资源
 
 ## 文档地址
 

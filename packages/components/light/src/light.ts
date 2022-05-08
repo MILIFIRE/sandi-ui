@@ -1,7 +1,6 @@
 import { getCore } from "@sandi-ui/utils";
 
-import { EventType } from "@sandi-ui/enum";
-import type { Light, Material, Object3D } from "three";
+import type { Light, Object3D } from "three";
 const useLight = (light: Light) => {
   const core = getCore();
   const { parentId, id } = core.addNode(light);

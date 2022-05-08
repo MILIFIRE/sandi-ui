@@ -4,6 +4,20 @@ import markdownItCheckbox from 'markdown-it-checkbox';
 import markdownItDemo from './markdown/plugin/markdown-it-demo';
 const getComponents = () => [
   {
+    text: '核心',
+    link: '/components/Raycaster/index',
+    children: [
+      {
+        text: 'Raycaster',
+        link: '/components/Raycaster/Raycaster',
+      },
+      {
+        text: 'Object3d',
+        link: '/components/Objects/object3d',
+      },
+    ],
+  },
+  {
     text: '渲染器',
     link: '/components/Renderers/index',
     children: [
@@ -73,6 +87,10 @@ const getComponents = () => [
     text: '材质',
     link: '/components/Materials/index',
     children: [
+      {
+        text: 'Material',
+        link: '/components/Materials/Material',
+      },
       {
         text: 'MeshBasicMaterial',
         link: '/components/Materials/MeshBasicMaterial',
@@ -178,7 +196,7 @@ const getGuide = () => [
 ];
 const getExample = () => [
   {
-    text: '元宇宙商店',
+    text: '物体交互',
     link: '/example/Metaverse/index',
   },
 ];

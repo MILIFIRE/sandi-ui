@@ -1,13 +1,13 @@
-<script   lang="ts">
-import { Light } from "three";
+<script lang="ts">
+import type { Light } from "three";
 import useLight from "./light";
 import { object3dProps, propsWatch } from "../../object3d/props";
-import { defineComponent, onUnmounted, watch } from "vue";
+import { defineComponent, onUnmounted, watch, type PropType } from "vue";
 export default defineComponent({
     props: {
         ...object3dProps,
         light: {
-            type: Light,
+            type: Object as PropType<Light>,
             required: true,
         }
     },
@@ -24,7 +24,7 @@ export default defineComponent({
         onUnmounted(() => {
             remove()
         })
-    },
+    }
 });
 </script>
 
@@ -32,5 +32,3 @@ export default defineComponent({
     <slot></slot>
 </template>
 
-<style scoped>
-</style>
