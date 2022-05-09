@@ -9,6 +9,7 @@ export default defineComponent({
         });
         onUnmounted(() => {
         });
+        return {instance}
     },
 });
 </script>

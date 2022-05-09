@@ -6,6 +6,7 @@ import { GLTFLoader } from "./loaders/GLTFLoader"
 import { FBXLoader } from "./loaders/FBXLoader"
 import { OBJLoader } from "./loaders/OBJLoader"
 import WebGLRendererWrap from "./renderers/WebGLRendererWrap"
+import {CSS2DRenderer,CSS2DObject} from "./renderers/CSS2DRenderer"
 
-export { WebGLRendererWrap, FontLoader, Font, GLTFLoader, OBJLoader, FBXLoader, OrbitControls, TransformControls, PointerLockControls }
+export { WebGLRendererWrap, FontLoader, Font, GLTFLoader, OBJLoader, FBXLoader, OrbitControls, TransformControls, PointerLockControls,CSS2DRenderer,CSS2DObject }
 

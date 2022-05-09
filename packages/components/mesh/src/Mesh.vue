@@ -47,7 +47,7 @@ export default defineComponent({
         })
 
         update(updateWatch);
-        onUnmounted(() => { remove(); removeEvent() });
+        onUnmounted(() => { remove(); removeEvent(),watchStopSet() });
         return { getInstance };
     },
 });

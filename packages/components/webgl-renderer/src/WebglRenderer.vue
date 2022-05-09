@@ -46,6 +46,9 @@ export default defineComponent({
                 if (camera) instance.setCamera(camera);
             }
         );
+        watch (()=>props.css2D,(val)=>{
+            instance.enableCss2D(val)
+        })
 
         computed(() => {
             setSize(props.width, props.height);
@@ -69,6 +72,9 @@ export default defineComponent({
                 setEvent(props.enableEvent)
             }
             instance.renderScene();
+            if(props.css2D){
+                instance.enableCss2D(true)
+            }
         });
 
         onUnmounted(() => {
@@ -93,7 +99,7 @@ export default defineComponent({
 </script>
 
 <template>
-    <div ref="rendererDom" :style="{ width: width + 'px', height: height + 'px' }">
+    <div ref="rendererDom" :style="{ width: width + 'px', height: height + 'px' ,position:'relative'}" >
         <slot></slot>
     </div>
 </template>

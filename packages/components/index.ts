@@ -46,3 +46,7 @@ export * from "./pointerlock-controls";
 
 // raycaster
 export * from "./raycaster";
+
+// css2d
+export * from "./css2d-object";
+

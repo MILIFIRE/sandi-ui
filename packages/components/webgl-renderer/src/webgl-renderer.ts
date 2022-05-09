@@ -54,6 +54,12 @@ export const webglProps = {
     required: false,
     default: true,
   },
+  css2D:{
+    type: Boolean,
+    required: false,
+    default: false,
+  }
+  
 };
 
 export const useRender = (parameters?: WebGLRendererParameters | undefined) => {
@@ -64,7 +70,7 @@ export const useRender = (parameters?: WebGLRendererParameters | undefined) => {
   const { id } = core.getParentAndId();
   instance.init(id, core);
   const setSize = (width: number, height: number) => {
-    instance.setSize(width, height);
+    instance.setRenderSize(width, height);
     nextTick(() => {
       core.dispatchEventById(id, {
         type: EventType.RenderSizeChang,
