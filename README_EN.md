@@ -67,8 +67,7 @@ Vue life cycle, when the build is uninstalled, resources are automatically recla
 
 https://milifire.github.io/sandi-ui/
 
-china:http://152.136.110.22/ (The domain name is being filed)
-Gradually improving, there are some examples for your reference
+
 
 ## fast start
 

@@ -28,6 +28,16 @@ const getComponents = () => [
     ],
   },
   {
+    text: 'CSS2D - 信息点',
+    link: '/components/CSS2D/SDCSS2DObject',
+    children: [
+      {
+        text: 'SDCSS2DObject',
+        link: '/components/CSS2D/SDCSS2DObject',
+      },
+    ],
+  },
+  {
     text: '场景',
     link: '/components/Scenes/index',
     children: [
