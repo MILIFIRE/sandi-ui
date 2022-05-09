@@ -47,6 +47,10 @@ onContextmenu
 
 Using the SDRaycaster component to detect contact, you can make interesting interactive demos
 
+### CSS2D support
+
+You can make interesting interactions like information points
+
 ### Advanced component
 
 SDLight, SDMaterial, SDMesh, SDGeometry and other components can support threejS instance injection
