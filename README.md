@@ -47,6 +47,10 @@ onContextmenu
 
 使用 SDRaycaster 组件检测是否有物体接触，你可以做出很有意思的交互 demo
 
+### CSS2D 支持
+
+可以做出信息点等好玩的交互啊
+
 ### 高级组件
 
 SDLight、 SDMaterial、 SDMesh、SDGeometry 等组件可以支 threejs 实例注入
