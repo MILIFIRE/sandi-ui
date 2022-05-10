@@ -1,0 +1,1 @@
+import{_ as a,c as n,o as s,a as t}from"./app.0cccc6ca.js";const b='{"title":"SDCSS2DObject","description":"","frontmatter":{},"headers":[],"relativePath":"components/CSS2D/SDCSS2DObject.md"}',p={},e=t("",5),o=[e];function c(l,u,i,r,k,d){return s(),n("div",null,o)}var m=a(p,[["render",c]]);export{b as __pageData,m as default};

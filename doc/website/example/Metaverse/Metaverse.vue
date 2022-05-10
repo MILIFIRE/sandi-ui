@@ -16,8 +16,8 @@
                     </SDMeshBasicMaterial>
                 </SDMesh>
                 <SDMesh :position="[0, 0, 0]" :rotation="[0, y, 0]" :scaleXYZ="1">
-                    <SDRaycaster :lockDirection="true" :helper="{ color: 'red' }" :direction="v3"
-                        :far="2" :offset="new Vector3(0, 0, 0)" :raycasterCallback="testObject" />
+                    <SDRaycaster :lockDirection="true" :helper="{ color: 'red' }" :direction="[1,0,0]"
+                        :far="2" :offset="[0,0,0]" :raycasterCallback="testObject" />
                     <SDBoxGeometry :width="1" />
                     <SDMeshBasicMaterial>
                         <SDTextureLoader url="/sandi-ui/img/crate.gif" type="map" />
@@ -40,7 +40,6 @@ const y = ref(0)
 const y1 = ref(0)
 const touch = ref(false)
 const scale = ref(1)
-const v3 = ref(new Vector3(1, 0, 0))
 const render = () => {
     y.value += 0.025
     touch.value = false

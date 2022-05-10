@@ -10,11 +10,15 @@ interface helper {
     headLength?: number,
     headWidth?: number,
 }
+const aryToV3=(ary)=>{
+    const [x,y,z] = ary 
+    return new Vector3(x,y,z)
+}
 export default defineComponent({
     props: {
-        origin: { type: Vector3, require: false, default: new Vector3() },
-        offset: { type: Vector3, require: false, default: new Vector3() },
-        direction: { type: Vector3, require: false, default: new Vector3(0, 1, 0) },
+        origin: { type: Array, require: false, default: [0,0,0] },
+        offset: { type: Array, require: false, default: [0,0,0] },
+        direction: { type: Array, require: false, default: [0,1,0] },
         near: { type: Number, require: false, default: 0 },
         far: { type: Number, require: false, default: Infinity },
         disabled: { type: Boolean, require: false, default: false },
@@ -41,16 +45,16 @@ export default defineComponent({
     },
     setup(props) {
         const { origin, direction, near, far } = props
-        const { setEnabled, setOffset, updateBack, instance, remove, setHelper, setLockDirection } = useRaycaster(origin, direction, near, far);
+        const { setEnabled, setOffset, updateBack, instance, remove, setHelper, setLockDirection } = useRaycaster(aryToV3(origin), aryToV3(direction), near, far);
         updateBack(props.raycasterCallback);
         setHelper(props.helper);
-        setOffset(props.offset);
+        setOffset(aryToV3(props.offset));
         setLockDirection(props.lockDirection)
         watch(() => props.origin, (val) => {
-            instance.ray.origin.copy(val);
+            instance.ray.origin.copy(aryToV3(val));
         })
         watch(() => props.direction, (val) => {
-            instance.ray.direction.copy(val);
+            instance.ray.direction.copy(aryToV3(val));
         })
         watch(() => props.near, (val) => {
             instance.near = val;
@@ -68,7 +72,7 @@ export default defineComponent({
             setHelper(val);
         })
         watch(() => props.offset, (val) => {
-            setOffset(val);
+            setOffset(aryToV3(val));
         })
         watch(() => props.lockDirection, (val) => {
             setLockDirection(val)

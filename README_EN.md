@@ -38,10 +38,10 @@ onContextmenu
 <SDRaycaster
   :lockDirection="true"
   :helper="true"
-  :direction="new Vector3(-1, 0.5, 0)"
+  :direction="[1,0,0]"
   :raycasterCallback="consoleRay"
   :far="4"
-  :offset="new Vector3(0, 0, 0)"
+  :offset="[0,0,0]"
 />
 ```
 
