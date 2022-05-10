@@ -1,5 +1,5 @@
 import { OrbitControls } from "@sandi-ui/modules";
-import { inject } from "vue";
+import { inject, nextTick } from "vue";
 import type { Camera } from "three";
 import type { WebGLRendererWrap } from "@sandi-ui/modules";
 import { getCore } from "@sandi-ui/utils";
@@ -9,25 +9,33 @@ import { EventType } from "@sandi-ui/enum";
 //  场景
 const useOrbitControls = (
   camera: Camera | undefined,
-  domElement: HTMLCanvasElement | undefined
+  domElement: HTMLElement | null
 ) => {
   const core = getCore();
   let instance;
   let needUpdate = false;
   const renderId = inject<number | undefined>(RENDER_ID);
+  let renderNode;
   if (!camera && !domElement) {
     if (renderId) {
-      const renderNode = core.getNode<WebGLRendererWrap>(renderId);
+      renderNode = core.getNode<WebGLRendererWrap>(renderId);
       camera = renderNode.node.getCamera() as Camera;
-      domElement = renderNode.node.domElement;
+      domElement = renderNode.node.domElement.parentElement;
     }
   }
+
   if (camera && domElement) {
-    const control = new OrbitControls(camera, domElement);
-    instance = control;
-    const { parentId, id } = core.addNode(control);
+    instance = new OrbitControls(camera, domElement);
+    const { parentId, id } = core.addNode(instance);
   } else {
-    console.error("not found any camera in OrbitControls");
+      //   To optimize the
+    nextTick(() => {
+      instance = new OrbitControls(
+        renderNode.node.getCamera(),
+        renderNode.node.domElement.parentElement
+      );
+    });
+    // console.error("not found any camera in OrbitControls");
   }
   if (renderId) {
     core.dispatchEventById(renderId, {

@@ -10,7 +10,7 @@ export default defineComponent({
             required: false,
         },
         domElement: {
-            type: Object as PropType<HTMLCanvasElement>,
+            type: Object as PropType<HTMLElement>,
             required: false,
         },
         autoRotate: {

@@ -1,4 +1,4 @@
-# sand-ui
+# sandi-ui
 
 [中文](https://github.com/MILIFIRE/sandi-ui/blob/beta/README.md)｜[English](https://github.com/MILIFIRE/sandi-ui/blob/beta/README_EN.md)
 

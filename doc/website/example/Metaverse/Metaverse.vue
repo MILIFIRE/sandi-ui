@@ -4,10 +4,11 @@
         <SDScene>
             <SDGroup :rotation="[0, y1, 0]" :scaleXYZ="0.5">
                 <SDMesh name="left" :rotation="[0, y1, 0]" :position="[-2, 0, 0]" :scaleXYZ="1">
-                    <SDCSS2DObject :style="{background:'red'}" :position="[0, 0.5, 0]" >
+                    <SDCSS2DObject :style="{background:'gray'}" :position="[0, 1, 0]" >
                         <div class="label">
-                            {{ text }}
+                            {{ text }} 
                         </div>
+                        <!-- any vue components -->
                     </SDCSS2DObject>
                     <SDBoxGeometry :width="1" />
                     <SDMeshBasicMaterial>

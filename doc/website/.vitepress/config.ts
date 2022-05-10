@@ -209,6 +209,10 @@ const getExample = () => [
     text: '物体交互',
     link: '/example/Metaverse/index',
   },
+  {
+    text: 'vue信息点展示',
+    link: '/example/CSS2D/index',
+  },
 ];
 export const config: UserConfig = {
   // base: '/sudi-ui_doc/',
