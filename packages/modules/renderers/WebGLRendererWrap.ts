@@ -51,15 +51,15 @@ export default class WebGLRendererWrap extends WebGLRenderer {
   delCallBack(fn: (delta: number, milliseconds: number) => void) {
     this.callBack = this.callBack.filter((item) => item != fn);
   }
-  enableCss2D(val: boolean) {
+  enableCss2D(val: boolean,dom?:HTMLElement) {
     if (val && !this.css2DRenderer) {
       const v2 = new Vector2();
       this.getSize(v2);
-      this.css2DRenderer = new CSS2DRenderer();
+      this.css2DRenderer = new CSS2DRenderer({element:dom});
       this.css2DRenderer.setSize(v2.x, v2.y);
-      this.css2DRenderer.domElement.style.position = "absolute";
-      this.css2DRenderer.domElement.style.top = "0px";
-      this.domElement.parentElement?.appendChild(this.css2DRenderer.domElement);
+    //   this.css2DRenderer.domElement.style.position = "absolute";
+    //   this.css2DRenderer.domElement.style.top = "0px";
+    //   this.domElement.parentElement?.appendChild(this.css2DRenderer.domElement);
     } else {
       this.domElement.parentElement?.removeChild(this.css2DRenderer.domElement);
       this.css2DRenderer = null;

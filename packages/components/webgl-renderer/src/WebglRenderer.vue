@@ -47,7 +47,7 @@ export default defineComponent({
             }
         );
         watch (()=>props.css2D,(val)=>{
-            instance.enableCss2D(val)
+            instance.enableCss2D(val,rendererDom.value)
         })
 
         computed(() => {
@@ -73,7 +73,7 @@ export default defineComponent({
             }
             instance.renderScene();
             if(props.css2D){
-                instance.enableCss2D(true)
+                instance.enableCss2D(true,rendererDom.value)
             }
         });
 

@@ -209,11 +209,11 @@ const useEvent = (renderNode: WebGLRendererWrap) => {
     document.addEventListener(event, handleEvent);
   });
   eventList.forEach((event) => {
-    domElement?.parentElement?.addEventListener(event, handleEvent);
+    domElement?.addEventListener(event, handleEvent);
   });
   const remove = () => {
     eventList.forEach((event) => {
-      domElement?.parentElement?.removeEventListener(event, handleEvent);
+      domElement?.removeEventListener(event, handleEvent);
     });
     Keyevent.forEach((event) => {
       document.removeEventListener(event, handleEvent);

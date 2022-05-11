@@ -1,11 +1,11 @@
-import { inject } from "vue";
+import { inject, getCurrentInstance } from "vue";
 import { Camera, MathUtils, Mesh, Raycaster, Scene, Vector2 } from "three";
 import type { WebGLRendererWrap } from "@sandi-ui/modules";
 import { getCore, isMesh, isOrbit } from "@sandi-ui/utils";
 import { RENDER_ID } from "@sandi-ui/constants";
 
 import { OrbitControls, TransformControls } from "@sandi-ui/modules";
-import { EventType } from "@sandi-ui/enum";
+import { EventType, SDEvent } from "@sandi-ui/enum";
 const mouse = new Vector2();
 
 const useTransformControls = (
@@ -17,6 +17,7 @@ const useTransformControls = (
   let windowSize: { width: number; height: number };
   let control: TransformControls;
   let remove;
+  let renderNode;
 
   if (!camera && !domElement) {
     renderId = inject<number | undefined>(RENDER_ID);
@@ -30,37 +31,25 @@ const useTransformControls = (
           windowSize = { width, height };
         }
       );
-      const renderNode = core.getNode<WebGLRendererWrap>(renderId);
+      renderNode = core.getNode<WebGLRendererWrap>(renderId);
       camera = renderNode.node.getCamera() as Camera;
       domElement = renderNode.node.domElement;
     }
   }
   if (camera && domElement) {
-    control = new TransformControls(camera, domElement);
+    const vnode = getCurrentInstance();
+    control = new TransformControls(camera, vnode?.uid, core,renderNode);
     const { parentId, id } = core.addNode(control);
     if (parentId) {
       const parentNode = core.getNode<Scene>(parentId);
       parentNode.node.add(control);
       const raycaster = new Raycaster();
-      const onClick = (event: MouseEvent) => {
-        if (windowSize) {
-          event.preventDefault();
-          mouse.x = (event.offsetX / windowSize.width) * 2 - 1;
-          mouse.y = -(event.offsetY / windowSize.height) * 2 + 1;
-          raycaster.setFromCamera(mouse, camera as Camera);
-          const childrens = core.getChildrens(parentId);
-          const Meshs = childrens
-            .filter((item) => isMesh(item.node))
-            .map((item) => item.node) as Mesh[];
-          const intersections = raycaster.intersectObjects(Meshs, true);
-          if (intersections.length > 0) {
-            const findeObject = intersections[0].object;
-            control.attach(findeObject);
-          } else {
-            control.detach();
-          }
+      const onClick = (event: MouseEvent, sdEvent) => {
+        const { target, intersects } = sdEvent;
+        if (intersects.length>0) {
+          control.attach(intersects[0].object);
         } else {
-          console.warn("unknow window size");
+          control.detach();
         }
       };
       const draggingChanged = (event) => {
@@ -77,7 +66,7 @@ const useTransformControls = (
           }
         }
       };
-      const keydown = (event: KeyboardEvent) => {
+      const keydown = (event) => {
         switch (event.code) {
           case "KeyQ": // Q
             control.setSpace(control.space === "local" ? "world" : "local");
@@ -102,13 +91,16 @@ const useTransformControls = (
             break;
         }
       };
-      domElement.addEventListener("click", onClick);
+      //   domElement.addEventListener("click", onClick);
+      core.setEvenet(("gl" + SDEvent.onClick) as SDEvent, id, onClick);
+
       control.addEventListener("dragging-changed", draggingChanged);
       //todo
-      document.addEventListener("keydown", keydown, false);
+      //   document.addEventListener("keydown", keydown, false);
+      core.setEvenet(("gl" + SDEvent.onKeyDown) as SDEvent, id, keydown);
       remove = () => {
-        domElement?.parentElement?.removeEventListener("keydown", keydown);
-        domElement?.removeEventListener("click", onClick);
+        core.delEvenet("gl" + SDEvent.onKeyDown, id);
+        core.delEvenet("gl" + SDEvent.onClick, id);
         control?.removeEventListener("dragging-changed", draggingChanged);
         control?.dispose();
       };

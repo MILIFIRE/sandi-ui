@@ -5,7 +5,7 @@ declare class CSS2DObject extends Object3D {
 }
 
 declare class CSS2DRenderer {
-  constructor();
+  constructor(parameters?:Object);
   render(scene: Scene, camera: Camera);
   setSize(width: number, height: number);
 }

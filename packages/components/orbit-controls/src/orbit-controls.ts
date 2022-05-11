@@ -1,5 +1,5 @@
 import { OrbitControls } from "@sandi-ui/modules";
-import { inject, nextTick } from "vue";
+import { getCurrentInstance, inject, nextTick } from "vue";
 import type { Camera } from "three";
 import type { WebGLRendererWrap } from "@sandi-ui/modules";
 import { getCore } from "@sandi-ui/utils";
@@ -16,26 +16,18 @@ const useOrbitControls = (
   let needUpdate = false;
   const renderId = inject<number | undefined>(RENDER_ID);
   let renderNode;
-  if (!camera && !domElement) {
+  const vnode = getCurrentInstance();
+
+  if (!camera) {
     if (renderId) {
       renderNode = core.getNode<WebGLRendererWrap>(renderId);
       camera = renderNode.node.getCamera() as Camera;
-      domElement = renderNode.node.domElement.parentElement;
     }
   }
 
-  if (camera && domElement) {
-    instance = new OrbitControls(camera, domElement);
+  if (camera) {
+    instance = new OrbitControls(camera, vnode?.uid, core, renderNode);
     const { parentId, id } = core.addNode(instance);
-  } else {
-      //   To optimize the
-    nextTick(() => {
-      instance = new OrbitControls(
-        renderNode.node.getCamera(),
-        renderNode.node.domElement.parentElement
-      );
-    });
-    // console.error("not found any camera in OrbitControls");
   }
   if (renderId) {
     core.dispatchEventById(renderId, {

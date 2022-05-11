@@ -5,7 +5,7 @@ declare enum TransformMode {
 }
 declare class TransformControls extends Object3D{
 
-    constructor(camera:Camera,domElement:HTMLElement)
+    constructor(camera:Camera,id:number,core:HTMLElement,renderNode)
     axis:string;
     camera:Camera;
     domElement:HTMLElement;
