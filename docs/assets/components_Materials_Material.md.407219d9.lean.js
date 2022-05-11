@@ -1,0 +1,1 @@
+import{_ as t,c as e,o as a,a as r}from"./app.141106e1.js";const f='{"title":"MeshBasicMaterial","description":"","frontmatter":{},"headers":[],"relativePath":"components/Materials/Material.md"}',i={},s=r("",3),d=[s];function l(n,h,o,c,_,g){return a(),e("div",null,d)}var y=t(i,[["render",l]]);export{f as __pageData,y as default};

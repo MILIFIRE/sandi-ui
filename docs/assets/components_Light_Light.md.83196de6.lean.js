@@ -1,0 +1,1 @@
+import{_ as t,c as e,o as a,a as i}from"./app.141106e1.js";const x='{"title":"Light","description":"","frontmatter":{},"headers":[],"relativePath":"components/Light/Light.md"}',h={},r=i("",3),n=[r];function s(d,_,l,o,c,g){return a(),e("div",null,n)}var y=t(h,[["render",s]]);export{x as __pageData,y as default};
