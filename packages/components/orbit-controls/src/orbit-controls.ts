@@ -26,7 +26,7 @@ const useOrbitControls = (
   }
 
   if (camera) {
-    instance = new OrbitControls(camera, vnode?.uid, core, renderNode);
+    instance = new OrbitControls(camera, vnode?.uid as number, core, renderNode);
     const { parentId, id } = core.addNode(instance);
   }
   if (renderId) {

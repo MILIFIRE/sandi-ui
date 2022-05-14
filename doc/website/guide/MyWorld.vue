@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+usePreLoader('/sandi-ui/img/crate.gif')
 const lock = ref(false);
 const getXZ = () => Math.floor(Math.random() * 20 - 10) * 20
 const getY = () => Math.floor(Math.random() * 20) * 20 + 10

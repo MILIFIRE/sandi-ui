@@ -28,6 +28,19 @@ const getComponents = () => [
     ],
   },
   {
+    text: 'hooks',
+    link: '/components/hooks/index',
+    children: [
+      {
+        text: 'useFrame',
+        link: '/components/hooks/useFrame',
+      },      {
+        text: 'usePreLoader',
+        link: '/components/hooks/usePreLoader',
+      },
+    ],
+  },
+  {
     text: 'CSS2D - 信息点',
     link: '/components/CSS2D/SDCSS2DObject',
     children: [

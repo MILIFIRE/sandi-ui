@@ -38,7 +38,7 @@ const useTransformControls = (
   }
   if (camera && domElement) {
     const vnode = getCurrentInstance();
-    control = new TransformControls(camera, vnode?.uid, core,renderNode);
+    control = new TransformControls(camera, vnode?.uid as number, core,renderNode);
     const { parentId, id } = core.addNode(control);
     if (parentId) {
       const parentNode = core.getNode<Scene>(parentId);

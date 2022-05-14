@@ -31,7 +31,7 @@ declare class OrbitControls {
     touches:any;
     zoom0:number;
     zoomSpeed:number;
-    constructor( object : Camera,id:number, core : HTMLElement,renderNode );
+    constructor( object : Camera,id:number, core : any,renderNode );
     dispose():void;
     getAzimuthalAngle():radians;
     getPolarAngle():radians;

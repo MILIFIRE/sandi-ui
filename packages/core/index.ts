@@ -31,6 +31,7 @@ interface v3dNode<T> {
 // 3D tree
 export default class v3dCore extends EventDispatcher {
   private map = new Map<number, v3dNode<ThreeType>>();
+  private renders: number[] = [];
   private objectsMap = new Map<Object3D, v3dNode<ThreeType>>();
   private event = new Map();
   addNode<T>(node: ThreeType) {
@@ -39,6 +40,7 @@ export default class v3dCore extends EventDispatcher {
     if (node instanceof WebGLRenderer) {
       // provide render id
       provide(RENDER_ID, id);
+      this.renders.push(id);
     }
     if (node instanceof Scene && node.isScene) {
       // provide scene id
@@ -105,10 +107,10 @@ export default class v3dCore extends EventDispatcher {
     this.map.set(id, { ...oldNode, node: newNode });
   }
   delNode(id: number) {
-    const node = this.map.get(id);
-    if (node?.parent) {
-      this.objectsMap.delete(node.node);
-      const parent = this.map.get(node.parent);
+    const v3dNode = this.map.get(id);
+    if (v3dNode?.parent) {
+      this.objectsMap.delete(v3dNode.node);
+      const parent = this.map.get(v3dNode.parent);
       if (parent?.children) {
         const children = parent.children.filter(
           (childrenId) => childrenId != id
@@ -119,6 +121,9 @@ export default class v3dCore extends EventDispatcher {
           parent.children = undefined;
         }
       }
+    }
+    if (v3dNode && v3dNode.node instanceof WebGLRenderer) {
+      this.renders = this.renders.filter((item) => item != id);
     }
     this.map.delete(id);
   }
@@ -168,6 +173,9 @@ export default class v3dCore extends EventDispatcher {
     } else {
       return undefined;
     }
+  }
+  getRenders(){
+      return this.renders
   }
   addEventListenerById(id: number, type: string, fn: (event: Event) => void) {
     this.addEventListener(`${type}-${id}`, fn);

@@ -26,6 +26,7 @@
         "@sandi-ui/modules": "workspace:*",
         "@sandi-ui/utils": "workspace:*",
         "@sandi-ui/constants": "workspace:*",
+        "@sandi-ui/hooks": "workspace:*",
         "@vueuse/core": "^8.2.5",
         "three": "^0.139.2",
         "vue": "^3.2.33"

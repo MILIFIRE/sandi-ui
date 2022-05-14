@@ -16,7 +16,7 @@ export const getCore = () => {
   if (vm) {
     return vm.appContext.config.globalProperties.$getv3dCore() as v3dCore;
   } else {
-    throw Error("Sandi-ui:Core实例获取错误");
+    throw Error("Sandi-ui:Core instance get error");
   }
 };
 export const getNow = (): number => {
