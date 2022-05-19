@@ -23,7 +23,8 @@ import {
   SDPointerLockControls,
   SDSpotLight,
   SDPointLight,
-  SDCSS2DObject
+  SDCSS2DObject,
+  SDCSS3DObject
 } from "@sandi-ui/components";
 
 import type { Plugin } from "vue";
@@ -53,5 +54,6 @@ export default [
   SDPointerLockControls,
   SDSpotLight,
   SDPointLight,
-  SDCSS2DObject
+  SDCSS2DObject,
+  SDCSS3DObject
 ] as Plugin[];

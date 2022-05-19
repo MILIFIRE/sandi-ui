@@ -50,3 +50,6 @@ export * from "./raycaster";
 // css2d
 export * from "./css2d-object";
 
+// css3d
+export * from "./css3d-object";
+

@@ -58,6 +58,11 @@ export const webglProps = {
     type: Boolean,
     required: false,
     default: false,
+  },
+  css3D:{
+    type: Boolean,
+    required: false,
+    default: false,
   }
   
 };

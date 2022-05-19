@@ -25,20 +25,27 @@ const wrapAjax = (
   });
 };
 export const usePreLoader = (
-  urls: string[],
-  onLoader: (res) => void,
-  onProgress: (info: { loaded: number; total: number }) => void,
-  onError: (error) => void
+  urls: string[] | string,
+  onLoader?: (res) => void,
+  onProgress?: (info: { loaded: number; total: number }) => void,
+  onError?: (error) => void
 ) => {
-  let promises:Promise<string>[] = [];
+  let promises: Promise<string>[] = [];
   let progress: { [key: string]: { loaded: number; total: number } } = {};
-  urls.forEach((item) => {
-    promises.push(
-      wrapAjax(item, (loaded, total) => {
-        progress[item] = { loaded, total };
+  if (Array.isArray(urls)) {
+    urls.forEach((item) => {
+      promises.push(
+        wrapAjax(item, (loaded, total) => {
+          progress[item] = { loaded, total };
+        })
+      );
+    });
+  } else {
+    wrapAjax(urls, (loaded, total) => {
+        progress[urls] = { loaded, total };
       })
-    );
-  });
+  }
+
   const timer = setInterval(() => {
     const [loaded, total] = Object.keys(progress).reduce(
       (add, item) => {
@@ -48,15 +55,15 @@ export const usePreLoader = (
       },
       [0, 0]
     );
-    onProgress({ loaded, total });
+  if(typeof onProgress === "function")  onProgress({ loaded, total });
   }, 100);
   Promise.all(promises)
     .then(
       (res) => {
-        onLoader(res);
+        if(typeof onLoader === "function") onLoader(res);
       },
       (fail) => {
-        onError(fail);
+        if(typeof onError === "function") onError(fail);
       }
     )
     .finally(() => {
