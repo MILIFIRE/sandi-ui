@@ -35,10 +35,10 @@
   >
     <SDOrbitControls />
     <SDScene>
-      <SDPerspectiveCamera :positionX="2.8" :positionY="0" :positionZ="16" />
+      <SDPerspectiveCamera :positionX="2.8" :positionY="0" :positionZ="45" />
 
       <SDGroup :positionY="-7" :rotation="[0, 0, 0]" :position="[0, 0, 0]" name="zhangfei">
-        <SDCSS2DObject :style="{ background: 'gray' }" :position="[0, 10, 0]">
+        <SDCSS2DObject :style="{ background: 'gray' }" :position="[0, 12, 0]">
           <el-button
             @click="
               () => {
@@ -50,7 +50,7 @@
           </el-button>
         </SDCSS2DObject>
 
-        <SDCSS3DObject  :scale="[0.1, 0.1, 0.1]" :position="[10, 0, 0]">
+        <SDCSS3DObject  :scale="[0.1, 0.1, 0.1]" :position="[15, -4, 0]">
           <div
             @click="
               () => {
@@ -59,7 +59,7 @@
             "
             :style="{ width: '100px', height: '200px' }"
           >
-            这是一个 CSS3D,展示 同时渲染 dom 的3D 变换可以展示出更多的效果,完全展示事件
+            这是一个 CSS3D,展示渲染3D变换，可以创造出更多的效果。
           </div>
         </SDCSS3DObject>
         <SDGroup

@@ -51,6 +51,10 @@ Using the SDRaycaster component to detect contact, you can make interesting inte
 
 You can make interesting interactions like information points
 
+### CSS3D support
+
+It can be combined with other component library stereoscopic effects for a more playful interaction
+
 ### Advanced component
 
 SDLight, SDMaterial, SDMesh, SDGeometry and other components can support threejS instance injection

@@ -1,0 +1,1 @@
+import{_ as t,c as e,o as i,a as n}from"./app.eb01cbb1.js";const y='{"title":"AnimationAction \u52A8\u4F5C\u7EC4\u4EF6","description":"","frontmatter":{},"headers":[],"relativePath":"components/Animation/AnimationAction.md"}',a={},d=n("",3),o=[d];function r(l,s,g,c,h,_){return i(),e("div",null,o)}var p=t(a,[["render",r]]);export{y as __pageData,p as default};

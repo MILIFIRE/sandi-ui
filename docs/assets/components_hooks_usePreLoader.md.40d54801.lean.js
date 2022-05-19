@@ -1,1 +1,0 @@
-import{_ as n,c as s,o as a,a as t}from"./app.fc1b8f4d.js";const _='{"title":"usePreLoader \u8D44\u6E90\u9884\u52A0\u8F7D\uFF0C","description":"","frontmatter":{},"headers":[],"relativePath":"components/hooks/usePreLoader.md"}',p={},o=t("",3),e=[o];function c(u,l,r,i,k,d){return a(),s("div",null,e)}var m=n(p,[["render",c]]);export{_ as __pageData,m as default};

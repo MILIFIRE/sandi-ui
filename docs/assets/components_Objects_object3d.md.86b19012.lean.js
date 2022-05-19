@@ -1,0 +1,1 @@
+import{_ as t,c as e,o as d,a as l}from"./app.eb01cbb1.js";const f='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"components/Objects/object3d.md"}',r={},i=l("",2),a=[i];function s(n,g,x,y,h,c){return d(),e("div",null,a)}var _=t(r,[["render",s]]);export{f as __pageData,_ as default};

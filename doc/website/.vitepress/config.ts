@@ -233,7 +233,7 @@ const getExample = () => [
     link: '/example/Metaverse/index',
   },
   {
-    text: 'vue信息点展示',
+    text: 'css2D css3D',
     link: '/example/CSS2D/index',
   },
 ];

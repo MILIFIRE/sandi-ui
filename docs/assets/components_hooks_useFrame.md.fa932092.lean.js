@@ -1,0 +1,1 @@
+import{_ as n,c as a,o as s,a as e}from"./app.eb01cbb1.js";const k='{"title":"useFrame \u6E32\u67D3\u5668\u56DE\u8C03","description":"","frontmatter":{},"headers":[],"relativePath":"components/hooks/useFrame.md"}',t={},o=e("",4),p=[o];function r(c,l,i,u,m,_){return s(),a("div",null,p)}var b=n(t,[["render",r]]);export{k as __pageData,b as default};
