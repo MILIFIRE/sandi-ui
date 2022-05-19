@@ -14,6 +14,7 @@
 | renderCallback  |    No    | (detle,time)=>{do some thing} | 渲染器执行回调后面会采用 其它方式 |
 | enableEvent     |    No    |                          true | 渲染器执行回调后面会采用 其它方式 |
 | css2D           |    No    |                         false |  开启 dom 支持 SDCSS2DObject 节点 |
+| css3D           |    No    |                         false |  开启 dom 支持 SDCSS3DObject 节点 |
 | parameters      |    No    |                      详见下文 |                                   |
 
 # parameters

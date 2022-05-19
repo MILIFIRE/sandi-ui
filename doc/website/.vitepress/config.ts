@@ -51,6 +51,16 @@ const getComponents = () => [
     ],
   },
   {
+    text: 'CSS3D - html节点3d 变换',
+    link: '/components/CSS3D/SDCSS3DObject',
+    children: [
+      {
+        text: 'SDCSS3DObject',
+        link: '/components/CSS3D/SDCSS3DObject',
+      },
+    ],
+  },
+  {
     text: '场景',
     link: '/components/Scenes/index',
     children: [
